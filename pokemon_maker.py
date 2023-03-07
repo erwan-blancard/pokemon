@@ -13,6 +13,7 @@ pokemon_parser.add_pokemon("Reptincel", 58, 17, 4, FIRE, -1, NORMAL, "GRIFFE", F
 pokemon_parser.add_pokemon("Dracaufeu", 78, 22, 7, FIRE, FLYING, DRAGON, "DRACOGRIFFE", FIRE, "INCENDIE")
 
 pokemon_parser.add_pokemon("Magicarpe", 20, 8, 2, WATER, -1, NORMAL, "CHARGE", NORMAL, "CHARGE")
+pokemon_parser.add_pokemon("Pichu", 24, 11, 0, ELECTR, -1, NORMAL, "CHARGE", ELECTR, "ECLAIR")
 
 pokemon_parser.load_pokemons()
 

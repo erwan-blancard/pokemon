@@ -94,5 +94,17 @@
         "attack_name_1": "CHARGE",
         "attack_type_2": -1,
         "attack_name_2": "invalid"
+    },
+    {
+        "name": "Pichu",
+        "strength": 24,
+        "hp": 11,
+        "defense": 0,
+        "type_ID_1": 13,
+        "type_ID_2": -1,
+        "attack_type_1": 0,
+        "attack_name_1": "CHARGE",
+        "attack_type_2": 13,
+        "attack_name_2": "ECLAIR"
     }
 ]
