@@ -2,25 +2,25 @@
     {
         "name": "MORSURE",
         "desc": "L’ennemi est mordu par de tranchantes canines.",
-        "attack_strenght": 0.6,
+        "attack_strength": 0.6,
         "success_rate": 1.0
     },
     {
         "name": "VIBROBSCUR",
         "desc": "Le lanceur dégage une horrible aura chargée d’idées noires.",
-        "attack_strenght": 0.85,
+        "attack_strength": 0.85,
         "success_rate": 0.9
     },
     {
-        "name": "MÂCHOUILLE",
+        "name": "MACHOUILLE",
         "desc": "Le lanceur mord l’ennemi de ses crocs pointus.",
-        "attack_strenght": 0.8,
+        "attack_strength": 0.8,
         "success_rate": 1.0
     },
     {
         "name": "EXPLONUIT",
         "desc": "Le lanceur attaque l’ennemi avec une onde de choc ténébreuse.",
-        "attack_strenght": 0.85,
+        "attack_strength": 0.85,
         "success_rate": 0.95
     }
 ]

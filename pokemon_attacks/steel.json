@@ -1,26 +1,26 @@
 [
     {
-        "name": "LANCÉCROU",
+        "name": "LANCECROU",
         "desc": "Le lanceur jette deux écrous d’acier qui frappent l’ennemi.",
-        "attack_strenght": 1.1,
+        "attack_strength": 1.1,
         "success_rate": 0.7
     },
     {
-        "name": "TÊTE DE FER",
+        "name": "TETE DE FER",
         "desc": "Heurte l’ennemi avec sa tête dure comme de l’acier.",
-        "attack_strenght": 0.8,
+        "attack_strength": 0.8,
         "success_rate": 1.0
     },
     {
         "name": "QUEUE DE FER",
         "desc": "Attaque l’ennemi avec une queue de fer.",
-        "attack_strenght": 1.0,
+        "attack_strength": 1.0,
         "success_rate": 0.8
     },
     {
         "name": "AILE D'ACIER",
         "desc": "Le lanceur frappe l’ennemi avec des ailes d’acier.",
-        "attack_strenght": 0.9,
+        "attack_strength": 0.9,
         "success_rate": 0.9
     }
 ]

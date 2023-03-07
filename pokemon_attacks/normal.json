@@ -2,25 +2,31 @@
     {
         "name": "CHARGE",
         "desc": "Charge l’ennemi et le percute de tout son corps.",
-        "attack_strenght": 0.35,
+        "attack_strength": 0.35,
         "success_rate": 1.0
     },
     {
         "name": "ULTIMAPOING",
         "desc": "L’ennemi reçoit un coup de poing d’une puissance incroyable.",
-        "attack_strenght": 0.8,
+        "attack_strength": 0.8,
         "success_rate": 0.85
     },
     {
-        "name": "POING COMÈTE",
+        "name": "POING COMETE",
         "desc": "Envoie une tornade de coups de poing à l'ennemi.",
-        "attack_strenght": 0.9,
+        "attack_strength": 0.9,
         "success_rate": 0.78
     },
     {
         "name": "TORGNOLES",
         "desc": "Gifle rapidement l’ennemi.",
-        "attack_strenght": 0.85,
+        "attack_strength": 0.85,
         "success_rate": 0.82
+    },
+    {
+        "name": "GRIFFE",
+        "desc": "Lacère la cible avec des griffes acérées pour lui infliger des dégâts.",
+        "attack_strength": 0.45,
+        "success_rate": 1.0
     }
 ]

@@ -31,6 +31,9 @@ class Type:
         self._types_not_effective = []
         self._types_no_effect = []
 
+    def get_name(self):
+        return self._name
+
     def get_type(self):
         return self._type
 

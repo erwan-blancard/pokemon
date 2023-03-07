@@ -2,25 +2,25 @@
     {
         "name": "ACIDE",
         "desc": "Attaque l’ennemi avec un jet d’acide corrosif.",
-        "attack_strenght": 0.4,
+        "attack_strength": 0.4,
         "success_rate": 1.0
     },
     {
         "name": "GAZ TOXIC",
         "desc": "Un nuage de gaz toxique est projeté au visage de l’ennemi.",
-        "attack_strenght": 0.8,
+        "attack_strength": 0.8,
         "success_rate": 1.0
     },
     {
-        "name": "PURÉDPOIS",
+        "name": "PUREDPOIS",
         "desc": "Attaque à l’aide d’une éruption de gaz répugnants.",
-        "attack_strenght": 0.4,
+        "attack_strength": 0.4,
         "success_rate": 0.70
     },
     {
         "name": "QUEUE-POISON",
         "desc": "L’ennemi est frappé par la queue du Pokémon.",
-        "attack_strenght": 0.6,
+        "attack_strength": 0.6,
         "success_rate": 1.0
     }
 ]

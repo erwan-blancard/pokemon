@@ -10,20 +10,17 @@ JSON Structure "pokemon.json":
     [
         {
             "name": str,
-            "strenght": int,
+            "strength": int,
             "hp": int,
             "defense": int,
             "type_ID_1": int,
-            "type_ID_2": int
+            "type_ID_2": int,
+            "attack_type_1": int,
+            "attack_name_1": str,
+            "attack_type_2": int,
+            "attack_name_2": str
         },
-        {
-            "name": str,
-            "strenght": int,
-            "hp": int,
-            "defense": int,
-            "type_ID_1": int,
-            "type_ID_2": int
-        }
+        etc
     ]
 JSON Structure "pokédex.json":
     [
@@ -60,7 +57,7 @@ def get_JSON(file):
         return json.load(file)
     except Exception as e:
         print(e)
-        return dict()
+        return list()
 
 
 def write_to_file(json_dict: dict, FILE=FILE_POKEMONS):
@@ -78,10 +75,12 @@ def load_pokemons():
                 for pkmn in json_dict:
                     try:
                         pkmn_in = Pokemon(name=pkmn["name"],
-                                          strenght=pkmn["strenght"],
+                                          strength=pkmn["strength"],
                                           level=1, hp=pkmn["hp"],
                                           defense=pkmn["defense"],
-                                          types=(pkmn["type_ID_1"], pkmn["type_ID_2"])
+                                          types=(pkmn["type_ID_1"], pkmn["type_ID_2"]),
+                                          type_attacks=(pkmn["attack_type_1"], pkmn["attack_type_2"]),
+                                          attacks=(pkmn["attack_name_1"], pkmn["attack_name_2"])
                                           )
                         POKEMONS.append(pkmn_in)
                     except Exception as e:
@@ -129,7 +128,7 @@ def pokemon_in_pokedex(pokemon_name: str):
 
 
 # returns False if the pokémon couldn't be added and True if it was added to "pokemon.json"
-def add_pokemon(name: str, strenght: int, hp: int, defense: int, type_ID_1: int, type_ID_2: int):
+def add_pokemon(name: str, strength: int, hp: int, defense: int, type_ID_1: int, type_ID_2: int, attack_type_1: int, attack_name_1: str, attack_type_2: int, attack_name_2: str):
     file = open_file()
     json_dict = get_JSON(file)
     if file is not None:
@@ -137,7 +136,18 @@ def add_pokemon(name: str, strenght: int, hp: int, defense: int, type_ID_1: int,
     if type(json_dict) == list:
         if not pokemon_exists(name):
             try:
-                json_dict.append({"name": name, "strenght": strenght, "hp": hp, "defense": defense, "type_ID_1": type_ID_1, "type_ID_2": type_ID_2})
+                json_dict.append(
+                    {"name": name,
+                     "strength": strength,
+                     "hp": hp,
+                     "defense": defense,
+                     "type_ID_1": type_ID_1,
+                     "type_ID_2": type_ID_2,
+                     "attack_type_1": attack_type_1,
+                     "attack_name_1": attack_name_1,
+                     "attack_type_2": attack_type_2,
+                     "attack_name_2": attack_name_2}
+                )
                 write_to_file(json_dict)
                 return True
             except:

@@ -2,25 +2,25 @@
     {
         "name": "DRACOCHOC",
         "desc": "Le lanceur ouvre la bouche pour envoyer une onde de choc qui frappe l’ennemi.",
-        "attack_strenght": 0.85,
+        "attack_strength": 0.85,
         "success_rate": 1.0
     },
     {
         "name": "DRACOSOUFFLE",
         "desc": "Le lanceur souffle fort sur l’ennemi pour infliger des dégâts.",
-        "attack_strenght": 0.6,
+        "attack_strength": 0.6,
         "success_rate": 1.0
     },
     {
         "name": "DRACO-QUEUE",
         "desc": "Un coup puissant qui blesse la cible et l’envoie balader.",
-        "attack_strenght": 0.8,
+        "attack_strength": 0.8,
         "success_rate": 0.9
     },
     {
         "name": "DRACOGRIFFE",
         "desc": "Le lanceur lacère l’ennemi de ses grandes griffes aiguisées.",
-        "attack_strenght": 0.8,
+        "attack_strength": 0.8,
         "success_rate": 1.0
     }
 ]

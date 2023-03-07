@@ -1,26 +1,26 @@
 [
     {
-        "name": "DARD-NUÉE",
+        "name": "DARD-NUEE",
         "desc": "Envoie une rafale de dards.",
-        "attack_strenght": 0.8,
+        "attack_strength": 0.8,
         "success_rate": 0.9
     },
     {
         "name": "RAYON SIGNAL",
         "desc": "Le lanceur projette un rayon de lumière sinistre.",
-        "attack_strenght": 0.75,
+        "attack_strength": 0.75,
         "success_rate": 1.0
     },
     {
         "name": "PLAIE-CROIX",
         "desc": "Le lanceur taillade l’ennemi.",
-        "attack_strenght": 0.8,
+        "attack_strength": 0.8,
         "success_rate": 1.0
     },
     {
-        "name": "MÉGACORNE",
+        "name": "MEGACORNE",
         "desc": "Le lanceur utilise ses cornes pour charger l’ennemi.",
-        "attack_strenght": 1.2,
+        "attack_strength": 1.2,
         "success_rate": 0.75
     }
 ]

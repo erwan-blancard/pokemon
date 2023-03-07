@@ -1,18 +1,98 @@
 [
     {
-        "name": "Pichu",
-        "strenght": 8,
-        "hp": 28,
+        "name": "Pikachu",
+        "strength": 35,
+        "hp": 13,
         "defense": 0,
-        "type_ID_1": 0,
-        "type_ID_2": -1
+        "type_ID_1": 13,
+        "type_ID_2": -1,
+        "attack_type_1": 0,
+        "attack_name_1": "CHARGE",
+        "attack_type_2": 13,
+        "attack_name_2": "ECLAIR"
     },
     {
-        "name": "Pikachu",
-        "strenght": 8,
-        "hp": 28,
+        "name": "Bulbizarre",
+        "strength": 45,
+        "hp": 15,
         "defense": 0,
-        "type_ID_1": 0,
-        "type_ID_2": -1
+        "type_ID_1": 12,
+        "type_ID_2": 3,
+        "attack_type_1": 0,
+        "attack_name_1": "CHARGE",
+        "attack_type_2": 12,
+        "attack_name_2": "BALLE GRAINE"
+    },
+    {
+        "name": "Herbizarre",
+        "strength": 60,
+        "hp": 18,
+        "defense": 3,
+        "type_ID_1": 12,
+        "type_ID_2": 3,
+        "attack_type_1": 0,
+        "attack_name_1": "CHARGE",
+        "attack_type_2": 12,
+        "attack_name_2": "FOUET LIANES"
+    },
+    {
+        "name": "Florizarre",
+        "strength": 80,
+        "hp": 21,
+        "defense": 8,
+        "type_ID_1": 12,
+        "type_ID_2": 3,
+        "attack_type_1": 12,
+        "attack_name_1": "FOUET LIANES",
+        "attack_type_2": 3,
+        "attack_name_2": "GAZ TOXIC"
+    },
+    {
+        "name": "Salam\u00e8che",
+        "strength": 39,
+        "hp": 14,
+        "defense": 0,
+        "type_ID_1": 10,
+        "type_ID_2": -1,
+        "attack_type_1": 0,
+        "attack_name_1": "GRIFFE",
+        "attack_type_2": 10,
+        "attack_name_2": "FLAMMECHE"
+    },
+    {
+        "name": "Reptincel",
+        "strength": 58,
+        "hp": 17,
+        "defense": 4,
+        "type_ID_1": 10,
+        "type_ID_2": -1,
+        "attack_type_1": 0,
+        "attack_name_1": "GRIFFE",
+        "attack_type_2": 10,
+        "attack_name_2": "CROCS FEU"
+    },
+    {
+        "name": "Dracaufeu",
+        "strength": 78,
+        "hp": 22,
+        "defense": 7,
+        "type_ID_1": 10,
+        "type_ID_2": 2,
+        "attack_type_1": 16,
+        "attack_name_1": "DRACOGRIFFE",
+        "attack_type_2": 10,
+        "attack_name_2": "INCENDIE"
+    },
+    {
+        "name": "Magicarpe",
+        "strength": 20,
+        "hp": 8,
+        "defense": 2,
+        "type_ID_1": 11,
+        "type_ID_2": -1,
+        "attack_type_1": 0,
+        "attack_name_1": "CHARGE",
+        "attack_type_2": -1,
+        "attack_name_2": "invalid"
     }
 ]
