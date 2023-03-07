@@ -126,11 +126,11 @@ class Pokemon:
     def get_attacks(self):
         return self.__attacks
 
-    def get_attack_damage(self, type_index: int, types_opponent: tuple[int, int]):
-        if 0 <= type_index < len(self.__types):
-            return self.__strength * self.__types[type_index].get_attack_multiplier(types_opponent)
+    def get_attack_damage(self, attack_index: int, types_opponent: tuple[int, int]):
+        if 0 <= attack_index < len(self.__attacks):
+            return self.__attacks[attack_index].get_attack_damage(self.__strength, types_opponent)
         else:
-            return self.__strength * self.__types[0].get_attack_multiplier(types_opponent)
+            return self.__attacks[0].get_attack_damage(self.__strength, types_opponent)
 
     def damage(self, amount):
         damage = amount - self.__defense

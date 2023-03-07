@@ -27,12 +27,11 @@ class Attack:
     def get_success_rate(self):
         return self.__success_rate
 
+    # returns -1 if attack is missed
     def get_attack_damage(self, pkmn_strength: int, types_opponent: tuple[int, int]):
-        if self.__success_rate >= 1.0:
+        r = random.random()
+        if self.__success_rate >= 1.0 or r <= self.__success_rate:
             return (self.__attack_strength * pkmn_strength) * self.__att_type.get_attack_multiplier(types_opponent)
         else:
-            r = random.random()
-            if r > self.__success_rate:
-                return -1
-            else:
-                return (self.__attack_strength * pkmn_strength) * self.__att_type.get_attack_multiplier(types_opponent)
+            return -1
+
