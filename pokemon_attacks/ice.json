@@ -1,0 +1,26 @@
+[
+    {
+        "name": "AVALANCHE",
+        "desc": "Provoque une avalanche de neige.",
+        "attack_strenght": 0.6,
+        "success_rate": 1.0
+    },
+    {
+        "name": "FEU GLACÉ",
+        "desc": "Le lanceur projette un souffle de vent glacial dévastateur sur l’ennemi.",
+        "attack_strenght": 1.2,
+        "success_rate": 0.8
+    },
+    {
+        "name": "BLIZZARD",
+        "desc": "Une violente tempête de neige est déclenchée sur l’ennemi.",
+        "attack_strenght": 1.1,
+        "success_rate": 0.85
+    },
+    {
+        "name": "LASER GLACE",
+        "desc": "Un rayon de glace frappe l’ennemi.",
+        "attack_strenght": 0.9,
+        "success_rate": 1.0
+    }
+]

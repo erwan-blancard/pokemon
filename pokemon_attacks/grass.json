@@ -1,0 +1,26 @@
+[
+    {
+        "name": "ENCORNEBOIS",
+        "desc": "Empale l’ennemi avec ses cornes de bois.",
+        "attack_strenght": 0.75,
+        "success_rate": 1.0
+    },
+    {
+        "name": "FOUET LIANES",
+        "desc": "Fouette l’ennemi avec de fines lianes pour infliger des dégâts.",
+        "attack_strenght": 0.5,
+        "success_rate": 1.0
+    },
+    {
+        "name": "VÉGÉ-ATTACK",
+        "desc": "Un violent coup de racines s’abat sur l’ennemi.",
+        "attack_strenght": 1.2,
+        "success_rate": 0.8
+    },
+    {
+        "name": "BALLE GRAINE",
+        "desc": "Le lanceur mitraille l’ennemi avec une rafale de graines.",
+        "attack_strenght": 0.85,
+        "success_rate": 0.95
+    }
+]

@@ -1,0 +1,26 @@
+[
+    {
+        "name": "PSYKO",
+        "desc": "Une puissante force télékinésique frappe l’ennemi.",
+        "attack_strenght": 0.9,
+        "success_rate": 1.0
+    },
+    {
+        "name": "FRAPPE PSY",
+        "desc": "Le lanceur matérialise des ondes mystérieuses qu’il projette sur l’ennemi.",
+        "attack_strenght": 0.9,
+        "success_rate": 0.95
+    },
+    {
+        "name": "PSYKOUD'BOUL",
+        "desc": "Le lanceur concentre sa volonté et donne un coup de tête.",
+        "attack_strenght": 0.8,
+        "success_rate": 0.9
+    },
+    {
+        "name": "CHOC PSY",
+        "desc": "Le lanceur matérialise des ondes mystérieuses qu’il projette sur l’ennemi.",
+        "attack_strenght": 0.8,
+        "success_rate": 1.0
+    }
+]

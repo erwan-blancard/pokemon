@@ -1,0 +1,26 @@
+[
+    {
+        "name": "AÉROPIQUE",
+        "desc": "Lacère l'ennemi avec une attaque en piqué.",
+        "attack_strenght": 0.6,
+        "success_rate": 1.0
+    },
+    {
+        "name": "TRANCH'AIR",
+        "desc": "Appelle des vents tranchants qui lacèrent l’ennemi.",
+        "attack_strenght": 0.6,
+        "success_rate": 0.95
+    },
+    {
+        "name": "REBOND",
+        "desc": "Le lanceur bondit très haut et plonge sur l’ennemi.",
+        "attack_strenght": 0.85,
+        "success_rate": 0.75
+    },
+    {
+        "name": "CRU-AILE",
+        "desc": "L’ennemi est frappé par de larges ailes.",
+        "attack_strenght": 0.60,
+        "success_rate": 1.0
+    }
+]

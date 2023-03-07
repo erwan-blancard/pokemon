@@ -1,0 +1,26 @@
+[
+    {
+        "name": "BALL'OMBRE",
+        "desc": "Projette une grande ombre sur l’ennemi.",
+        "attack_strenght": 0.8,
+        "success_rate": 0.97
+    },
+    {
+        "name": "VENT MAUVAIS",
+        "desc": "Le lanceur crée une violente bourrasque.",
+        "attack_strenght": 0.7,
+        "success_rate": 1.0
+    },
+    {
+        "name": "LÉCHOUILLE",
+        "desc": "Un grand coup de langue qui inflige des dégâts à l’ennemi.",
+        "attack_strenght": 0.7,
+        "success_rate": 1.0
+    },
+    {
+        "name": "GRIFFE OMBRE",
+        "desc": "Attaque avec une griffe puissante faite d’ombres.",
+        "attack_strenght": 1.0,
+        "success_rate": 0.75
+    }
+]

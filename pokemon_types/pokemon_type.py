@@ -25,6 +25,7 @@ TYPES_ATLAS = pygame.image.load("res/types.png")
 class Type:
 
     def __init__(self):
+        self._name = "???"
         self._type = -1
         self._types_super_effective = []
         self._types_not_effective = []

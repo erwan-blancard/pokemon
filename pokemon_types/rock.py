@@ -5,6 +5,7 @@ class Rock(Type):
 
     def __init__(self):
         super().__init__()
+        self._name = "rock"
         self._type = ROCK
         self._types_super_effective = [FIRE, ICE, FLYING, BUG]
         self._types_not_effective = [FIGHT, GROUND, STEEL]

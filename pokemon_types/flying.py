@@ -5,6 +5,7 @@ class Flying(Type):
 
     def __init__(self):
         super().__init__()
+        self._name = "flying"
         self._type = FLYING
         self._types_super_effective = [GRASS, FIGHT, BUG]
         self._types_not_effective = [ELECTR, ROCK, STEEL]

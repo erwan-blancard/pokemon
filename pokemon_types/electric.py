@@ -5,6 +5,7 @@ class Electric(Type):
 
     def __init__(self):
         super().__init__()
+        self._name = "electric"
         self._type = ELECTR
         self._types_super_effective = [WATER, FLYING]
         self._types_not_effective = [ELECTR, GRASS, DRAGON]

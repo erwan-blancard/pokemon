@@ -1,0 +1,18 @@
+[
+    {
+        "name": "Pichu",
+        "strenght": 8,
+        "hp": 28,
+        "defense": 0,
+        "type_ID_1": 0,
+        "type_ID_2": -1
+    },
+    {
+        "name": "Pikachu",
+        "strenght": 8,
+        "hp": 28,
+        "defense": 0,
+        "type_ID_1": 0,
+        "type_ID_2": -1
+    }
+]
