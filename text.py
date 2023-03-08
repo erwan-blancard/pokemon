@@ -4,11 +4,15 @@ from pygame.font import Font
 if not pygame.font.get_init():
     pygame.font.init()
 
-DEFAULT_COLOR = (230, 230, 230)
+DEFAULT_COLOR = (40, 40, 40)
 
 
 def get_font(size):
-    return Font("res/ARCADE_N.TTF", size)
+    return Font("res/PKMNRSEU.FON", size)
+
+
+def font():
+    return get_font(16)
 
 
 def draw_text(text, x, y, surface: pygame.Surface, font: pygame.font.Font, color=DEFAULT_COLOR, shadow_color=DEFAULT_COLOR, shadow_offset=0):

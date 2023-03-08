@@ -1,8 +1,25 @@
-import pokemon
-import pokemon_parser
+from game_state import *
 from pokemon_types.pokemon_type import *
 
-pokemon_parser.add_pokemon("Pikachu", 35, 13, 0, ELECTR, -1, NORMAL, "CHARGE", ELECTR, "ECLAIR")
+
+class PokemonMakerState(GameState):
+
+    def __init__(self):
+        super().__init__()
+
+    def update(self):
+        super().update()
+
+    def render(self, screen: pygame.Surface):
+        super().render(screen)
+
+    def input(self, event: pygame.event.Event):
+        super().input(event)
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                set_state(MENU)
+
+"""pokemon_parser.add_pokemon("Pikachu", 35, 13, 0, ELECTR, -1, NORMAL, "CHARGE", ELECTR, "ECLAIR")
 
 pokemon_parser.add_pokemon("Bulbizarre", 45, 15, 0, GRASS, POISON, NORMAL, "CHARGE", GRASS, "BALLE GRAINE")
 pokemon_parser.add_pokemon("Herbizarre", 60, 18, 3, GRASS, POISON, NORMAL, "CHARGE", GRASS, "FOUET LIANES")
@@ -20,3 +37,4 @@ pokemon_parser.load_pokemons()
 for pkmn in pokemon.POKEMONS:
     pkmn.print_infos()
     print()
+"""

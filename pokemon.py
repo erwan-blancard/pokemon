@@ -24,10 +24,6 @@ from pokemon_types.invalid_type import Invalid
 from pokemon_attacks.attack import *
 
 
-# stores pokémons
-POKEMONS = []
-
-
 def get_type_by_id(ID):
     if ID == NORMAL:
         return Normal()
@@ -156,3 +152,15 @@ class Pokemon:
 
     def get_image_front(self):
         return self.__get_pokemon_image("res/pokemons/{}_front.png")
+
+
+# stores pokémons
+POKEMONS: list[Pokemon] = []
+
+
+def get_pokemon_by_name(name: str):
+    for pkmn in POKEMONS:
+        if pkmn.get_name() == name:
+            return pkmn
+    return None
+

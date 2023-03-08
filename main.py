@@ -4,6 +4,8 @@ import pokemon
 import pokemon_parser
 from menu import MenuState
 from in_game import InGameState
+from pokedex import PokedexState
+from pokemon_maker import PokemonMakerState
 
 
 pygame.init()
@@ -14,7 +16,7 @@ if not pygame.font.get_init():
 pokemon_parser.load_pokemons()
 
 screen = pygame.display.set_mode((400*2, 240*2))    # 400x240
-pygame.display.set_caption("Pokémon  |  LaPlateforme Edition")
+pygame.display.set_caption("Pokémon  |  LaPlateforme Édition")
 pygame.display.set_icon(pygame.image.load("res/icon.png"))
 
 # main surface where everything should be drawed
@@ -23,6 +25,8 @@ game_surface = pygame.Surface((400, 240))
 
 game_state.state = 0
 state = MenuState()
+
+fullscreen = False
 
 running = True
 
@@ -34,6 +38,10 @@ while running:
             state = MenuState()
         elif game_state.state == game_state.INGAME:
             state = InGameState()
+        elif game_state.state == game_state.POKEDEX:
+            state = PokedexState()
+        elif game_state.state == game_state.POKEMON_MAKER:
+            state = PokemonMakerState()
         else:
             print("Invalid state id:", game_state.state)
         game_state.update_pending = False
@@ -41,6 +49,13 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_F11:
+            if fullscreen:
+                screen = pygame.display.set_mode((400 * 2, 240 * 2))
+                fullscreen = False
+            else:
+                pygame.display.set_mode(flags=pygame.FULLSCREEN)
+                fullscreen = True
         state.input(event)
 
     state.update()

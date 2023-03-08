@@ -127,6 +127,26 @@ def pokemon_in_pokedex(pokemon_name: str):
     return False
 
 
+def get_pokemon_encounter_count(pokemon_name: str):
+    file = open_file(FILE=FILE_POKEDEX)
+    if file is not None:
+        json_dict = get_JSON(file)
+        if json_dict is not None:
+            if type(json_dict) == list:
+                try:
+                    for pkmn in json_dict:
+                        if pkmn["name"].lower() == pokemon_name.lower():
+                            file.close()
+                            return pkmn["count"]
+                except Exception as e:
+                    print("Error in pokemon_in_pokedex():", e)
+                    file.close()
+                    return -1
+    if file is not None:
+        file.close()
+    return -1
+
+
 # returns False if the pokémon couldn't be added and True if it was added to "pokemon.json"
 def add_pokemon(name: str, strength: int, hp: int, defense: int, type_ID_1: int, type_ID_2: int, attack_type_1: int, attack_name_1: str, attack_type_2: int, attack_name_2: str):
     file = open_file()
