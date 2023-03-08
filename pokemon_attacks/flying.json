@@ -1,25 +1,25 @@
 [
     {
         "name": "AEROPIQUE",
-        "desc": "Lacère l'ennemi avec une attaque en piqué.",
+        "desc": "Lac\u00e8re l\u0027ennemi avec une attaque en piqu\u00e9.",
         "attack_strength": 0.6,
         "success_rate": 1.0
     },
     {
         "name": "TRANCH'AIR",
-        "desc": "Appelle des vents tranchants qui lacèrent l’ennemi.",
+        "desc": "Appelle des vents tranchants qui lac\u00e8rent l\u0027ennemi.",
         "attack_strength": 0.6,
         "success_rate": 0.95
     },
     {
         "name": "REBOND",
-        "desc": "Le lanceur bondit très haut et plonge sur l’ennemi.",
+        "desc": "Le lanceur bondit tr\u00e8s haut et plonge sur l\u0027ennemi.",
         "attack_strength": 0.85,
         "success_rate": 0.75
     },
     {
         "name": "CRU-AILE",
-        "desc": "L’ennemi est frappé par de larges ailes.",
+        "desc": "L\u0027ennemi est frapp\u00e9 par de larges ailes.",
         "attack_strength": 0.60,
         "success_rate": 1.0
     }

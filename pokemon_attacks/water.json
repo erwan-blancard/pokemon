@@ -1,25 +1,25 @@
 [
     {
         "name": "ECUME",
-        "desc": "Des bulles frappent l’ennemi.",
+        "desc": "Des bulles frappent l\u0027ennemi.",
         "attack_strength": 0.7,
         "success_rate": 1.0
     },
     {
         "name": "PINCE-MASSE",
-        "desc": "Une grande pince martèle l’ennemi.",
+        "desc": "Une grande pince mart\u00e8le l\u0027ennemi.",
         "attack_strength": 1.0,
         "success_rate": 0.9
     },
     {
         "name": "HYDROCANON",
-        "desc": "Un puissant jet d’eau est dirigé sur l’ennemi.",
+        "desc": "Un puissant jet d\u0027eau est dirig\u00e9 sur l\u0027ennemi.",
         "attack_strength": 1.1,
         "success_rate": 0.78
     },
     {
         "name": "OCROUPI",
-        "desc": "Le lanceur attaque en projetant de l’eau boueuse.",
+        "desc": "Le lanceur attaque en projetant de l\u0027eau boueuse.",
         "attack_strength": 0.9,
         "success_rate": 0.85
     }

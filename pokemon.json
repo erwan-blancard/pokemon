@@ -1,8 +1,8 @@
 [
     {
         "name": "Pikachu",
-        "strength": 35,
-        "hp": 13,
+        "strength": 13,
+        "hp": 35,
         "defense": 0,
         "type_ID_1": 13,
         "type_ID_2": -1,
@@ -13,8 +13,8 @@
     },
     {
         "name": "Bulbizarre",
-        "strength": 45,
-        "hp": 15,
+        "strength": 15,
+        "hp": 45,
         "defense": 0,
         "type_ID_1": 12,
         "type_ID_2": 3,
@@ -25,8 +25,8 @@
     },
     {
         "name": "Herbizarre",
-        "strength": 60,
-        "hp": 18,
+        "strength": 18,
+        "hp": 60,
         "defense": 3,
         "type_ID_1": 12,
         "type_ID_2": 3,
@@ -37,8 +37,8 @@
     },
     {
         "name": "Florizarre",
-        "strength": 80,
-        "hp": 21,
+        "strength": 21,
+        "hp": 80,
         "defense": 8,
         "type_ID_1": 12,
         "type_ID_2": 3,
@@ -49,8 +49,8 @@
     },
     {
         "name": "Salam\u00e8che",
-        "strength": 39,
-        "hp": 14,
+        "strength": 14,
+        "hp": 39,
         "defense": 0,
         "type_ID_1": 10,
         "type_ID_2": -1,
@@ -61,8 +61,8 @@
     },
     {
         "name": "Reptincel",
-        "strength": 58,
-        "hp": 17,
+        "strength": 17,
+        "hp": 58,
         "defense": 4,
         "type_ID_1": 10,
         "type_ID_2": -1,
@@ -73,8 +73,8 @@
     },
     {
         "name": "Dracaufeu",
-        "strength": 78,
-        "hp": 22,
+        "strength": 22,
+        "hp": 78,
         "defense": 7,
         "type_ID_1": 10,
         "type_ID_2": 2,
@@ -85,8 +85,8 @@
     },
     {
         "name": "Magicarpe",
-        "strength": 99,
-        "hp": 8,
+        "strength": 8,
+        "hp": 99,
         "defense": 2,
         "type_ID_1": 11,
         "type_ID_2": -1,
@@ -97,8 +97,8 @@
     },
     {
         "name": "Pichu",
-        "strength": 24,
-        "hp": 11,
+        "strength": 11,
+        "hp": 24,
         "defense": 0,
         "type_ID_1": 13,
         "type_ID_2": -1,

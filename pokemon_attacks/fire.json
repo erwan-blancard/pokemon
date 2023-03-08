@@ -1,31 +1,31 @@
 [
     {
         "name": "FEU FOLLET",
-        "desc": "Lance une sinistre flamme violette à l’ennemi.",
+        "desc": "Lance une sinistre flamme violette à l\u0027ennemi.",
         "attack_strength": 0.85,
         "success_rate": 0.95
     },
     {
         "name": "INCENDIE",
-        "desc": "Des flammes rougeoyantes s’abattent sur l'ennemi.",
+        "desc": "Des flammes rougeoyantes s\u0027abattent sur l\u0027ennemi.",
         "attack_strength": 0.8,
         "success_rate": 1.0
     },
     {
         "name": "FLAMME BLEUE",
-        "desc": "De magnifiques et redoutables flammes bleues fondent sur l’ennemi.",
+        "desc": "De magnifiques et redoutables flammes bleues fondent sur l\u0027ennemi.",
         "attack_strength": 1.3,
         "success_rate": 0.68
     },
     {
         "name": "CROCS FEU",
-        "desc": "Le lanceur utilise une morsure enflammée.",
+        "desc": "Le lanceur utilise une morsure enflamm\u00e9e.",
         "attack_strength": 0.75,
         "success_rate": 0.95
     },
     {
         "name": "FLAMMECHE",
-        "desc": "La cible est attaquée par une faible flamme.",
+        "desc": "La cible est attaqu\u00e9e par une faible flamme.",
         "attack_strength": 0.45,
         "success_rate": 1.0
     }

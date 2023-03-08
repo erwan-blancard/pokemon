@@ -1,25 +1,25 @@
 [
     {
         "name": "DYNAMOPOING",
-        "desc": "Envoie un coup de poing à l’ennemi.",
+        "desc": "Envoie un coup de poing \u00e0 l\u0027ennemi.",
         "attack_strength": 1.0,
         "success_rate": 0.5
     },
     {
         "name": "ECLATE-ROCK",
-        "desc": "Porte un coup dévastateur à l’ennemi.",
+        "desc": "Porte un coup d\u00e9vastateur \u00e0 l\u0027ennemi.",
         "attack_strength": 0.40,
         "success_rate": 1.0
     },
     {
         "name": "DOUBLE PIED",
-        "desc": "Envoie deux coups de pied à l'ennemi.",
+        "desc": "Envoie deux coups de pied \u00e0 l\u0027ennemi.",
         "attack_strength": 0.30,
         "success_rate": 1.0
     },
     {
         "name": "COGNE",
-        "desc": "Un déluge de coups adressés avec la paume.",
+        "desc": "Un d\u00e9luge de coups adress\u00e9s avec la paume.",
         "attack_strength": 0.65,
         "success_rate": 1.0
     }

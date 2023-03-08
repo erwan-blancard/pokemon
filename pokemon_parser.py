@@ -1,5 +1,7 @@
 import os
 import json
+
+import pokemon
 from pokemon import *
 
 FILE_POKEMONS = "pokemon.json"

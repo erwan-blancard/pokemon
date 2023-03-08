@@ -7,19 +7,19 @@
     },
     {
         "name": "RAYON SIGNAL",
-        "desc": "Le lanceur projette un rayon de lumière sinistre.",
+        "desc": "Le lanceur projette un rayon de lumi\u00e8re sinistre.",
         "attack_strength": 0.75,
         "success_rate": 1.0
     },
     {
         "name": "PLAIE-CROIX",
-        "desc": "Le lanceur taillade l’ennemi.",
+        "desc": "Le lanceur taillade l\u0027ennemi.",
         "attack_strength": 0.8,
         "success_rate": 1.0
     },
     {
         "name": "MEGACORNE",
-        "desc": "Le lanceur utilise ses cornes pour charger l’ennemi.",
+        "desc": "Le lanceur utilise ses cornes pour charger l\u0027ennemi.",
         "attack_strength": 1.2,
         "success_rate": 0.75
     }

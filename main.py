@@ -2,6 +2,7 @@ import pygame
 import game_state
 import pokemon
 import pokemon_parser
+import text
 from menu import MenuState
 from in_game import InGameState
 from pokedex import PokedexState
@@ -11,6 +12,7 @@ from pokemon_maker import PokemonMakerState
 pygame.init()
 if not pygame.font.get_init():
     pygame.font.init()
+
 
 # load pokémon list in package pokemon
 pokemon_parser.load_pokemons()
@@ -63,6 +65,11 @@ while running:
     game_surface.fill((240, 255, 240))
 
     state.render(game_surface)
+
+    current_win_mode = "Fenêtré"
+    if fullscreen:
+        current_win_mode = "Fullscreen"
+    text.draw_text(current_win_mode, 400 - 4 - text.font().size(current_win_mode)[0], 240 - text.font().size(current_win_mode)[1], game_surface, text.font())
 
     screen.blit(pygame.transform.scale(game_surface, (screen.get_width(), screen.get_height())), (0, 0))
 

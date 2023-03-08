@@ -1,25 +1,25 @@
 [
     {
         "name": "ECLAT MAGIQUE",
-        "desc": "Libère une puissante décharge lumineuse qui inflige des dégâts à l'ennemi.",
+        "desc": "Lib\u00e8re une puissante d\u00e9charge lumineuse qui inflige des d\u00e9g\u00e2ts \u00e0 l\u0027ennemi.",
         "attack_strength": 0.8,
         "success_rate": 1.0
     },
     {
         "name": "CALINERIE",
-        "desc": "Attaque l'ennemi avec un câlin. ",
+        "desc": "Attaque l\u0027ennemi avec un c\u00e2lin. ",
         "attack_strength": 0.9,
         "success_rate": 0.9
     },
     {
         "name": "VENT FEERIQUE",
-        "desc": "Le lanceur crée une bourrasque féerique et frappe la cible avec.",
+        "desc": "Le lanceur cr\u00e9e une bourrasque f\u00e9erique et frappe la cible avec.",
         "attack_strength": 0.4,
         "success_rate": 1.0
     },
     {
         "name": "POUVOIR LUNAIRE",
-        "desc": "Le lanceur attaque l’ennemi grâce aux pouvoirs lunaires.",
+        "desc": "Le lanceur attaque l\u0027ennemi gr\u00e2ce aux pouvoirs lunaires.",
         "attack_strength": 0.95,
         "success_rate": 0.85
     }

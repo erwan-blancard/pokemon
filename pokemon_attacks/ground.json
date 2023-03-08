@@ -1,7 +1,7 @@
 [
     {
         "name": "TELLURIFORCE",
-        "desc": "Des éruptions volcaniques ont lieu sous l’ennemi.",
+        "desc": "Des \u00e9ruptions volcaniques ont lieu sous l\u0027ennemi.",
         "attack_strength": 0.85,
         "success_rate": 1.0
     },
@@ -13,7 +13,7 @@
     },
     {
         "name": "TIR DE BOUE",
-        "desc": "Le lanceur attaque en projetant de la boue sur l’ennemi.",
+        "desc": "Le lanceur attaque en projetant de la boue sur l\u0027ennemi.",
         "attack_strength": 0.55,
         "success_rate": 0.95
     },

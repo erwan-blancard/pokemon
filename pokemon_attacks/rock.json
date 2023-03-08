@@ -1,25 +1,25 @@
 [
     {
         "name": "JET-PIERRES",
-        "desc": "Le lanceur lâche une pierre sur l’ennemi.",
+        "desc": "Le lanceur l\u00e2che une pierre sur l\u0027ennemi.",
         "attack_strength": 0.6,
         "success_rate": 0.9
     },
     {
         "name": "LAME DE ROC",
-        "desc": "Fait surgir des pierres aiguisées sous l’ennemi.",
+        "desc": "Fait surgir des pierres aiguis\u00e9es sous l\u0027ennemi.",
         "attack_strength": 1.0,
         "success_rate": 0.8
     },
     {
         "name": "EBOULEMENT",
-        "desc": "Envoie de gros rochers sur l’ennemi pour infliger des dégâts.",
+        "desc": "Envoie de gros rochers sur l\u0027ennemi pour infliger des d\u00e9g\u00eats.",
         "attack_strength": 0.75,
         "success_rate": 0.9
     },
     {
         "name": "TEMPETE DE SABLE",
-        "desc": "Le lanceur provoque une tempête de sable.",
+        "desc": "Le lanceur provoque une temp\u00eate de sable.",
         "attack_strength": 0.95,
         "success_rate": 0.75
     }

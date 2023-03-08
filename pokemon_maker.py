@@ -19,18 +19,18 @@ class PokemonMakerState(GameState):
             if event.key == pygame.K_ESCAPE:
                 set_state(MENU)
 
-"""pokemon_parser.add_pokemon("Pikachu", 35, 13, 0, ELECTR, -1, NORMAL, "CHARGE", ELECTR, "ECLAIR")
+"""pokemon_parser.add_pokemon("Pikachu", 13, 35, 0, ELECTR, -1, NORMAL, "CHARGE", ELECTR, "ECLAIR")
 
-pokemon_parser.add_pokemon("Bulbizarre", 45, 15, 0, GRASS, POISON, NORMAL, "CHARGE", GRASS, "BALLE GRAINE")
-pokemon_parser.add_pokemon("Herbizarre", 60, 18, 3, GRASS, POISON, NORMAL, "CHARGE", GRASS, "FOUET LIANES")
-pokemon_parser.add_pokemon("Florizarre", 80, 21, 8, GRASS, POISON, GRASS, "FOUET LIANES", POISON, "GAZ TOXIC")
+pokemon_parser.add_pokemon("Bulbizarre", 15, 45, 0, GRASS, POISON, NORMAL, "CHARGE", GRASS, "BALLE GRAINE")
+pokemon_parser.add_pokemon("Herbizarre", 18, 60, 3, GRASS, POISON, NORMAL, "CHARGE", GRASS, "FOUET LIANES")
+pokemon_parser.add_pokemon("Florizarre", 21, 80, 8, GRASS, POISON, GRASS, "FOUET LIANES", POISON, "GAZ TOXIC")
 
-pokemon_parser.add_pokemon("Salamèche", 39, 14, 0, FIRE, -1, NORMAL, "GRIFFE", FIRE, "FLAMMECHE")
-pokemon_parser.add_pokemon("Reptincel", 58, 17, 4, FIRE, -1, NORMAL, "GRIFFE", FIRE, "CROCS FEU")
-pokemon_parser.add_pokemon("Dracaufeu", 78, 22, 7, FIRE, FLYING, DRAGON, "DRACOGRIFFE", FIRE, "INCENDIE")
+pokemon_parser.add_pokemon("Salamèche", 14, 39, 0, FIRE, -1, NORMAL, "GRIFFE", FIRE, "FLAMMECHE")
+pokemon_parser.add_pokemon("Reptincel", 17, 58, 4, FIRE, -1, NORMAL, "GRIFFE", FIRE, "CROCS FEU")
+pokemon_parser.add_pokemon("Dracaufeu", 22, 78, 7, FIRE, FLYING, DRAGON, "DRACOGRIFFE", FIRE, "INCENDIE")
 
-pokemon_parser.add_pokemon("Magicarpe", 20, 8, 2, WATER, -1, NORMAL, "CHARGE", NORMAL, "CHARGE")
-pokemon_parser.add_pokemon("Pichu", 24, 11, 0, ELECTR, -1, NORMAL, "CHARGE", ELECTR, "ECLAIR")
+pokemon_parser.add_pokemon("Magicarpe", 8, 20, 2, WATER, -1, NORMAL, "CHARGE", NORMAL, "CHARGE")
+pokemon_parser.add_pokemon("Pichu", 11, 24, 0, ELECTR, -1, NORMAL, "CHARGE", ELECTR, "ECLAIR")
 
 pokemon_parser.load_pokemons()
 

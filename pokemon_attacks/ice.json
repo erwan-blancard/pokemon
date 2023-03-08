@@ -7,19 +7,19 @@
     },
     {
         "name": "FEU GLACE",
-        "desc": "Le lanceur projette un souffle de vent glacial dévastateur sur l’ennemi.",
+        "desc": "Le lanceur projette un souffle de vent glacial d\u00e9vastateur sur l\u0027ennemi.",
         "attack_strength": 1.2,
         "success_rate": 0.8
     },
     {
         "name": "BLIZZARD",
-        "desc": "Une violente tempête de neige est déclenchée sur l’ennemi.",
+        "desc": "Une violente temp\u00eate de neige est d\u00e9clench\u00e9e sur l\u0027ennemi.",
         "attack_strength": 1.1,
         "success_rate": 0.85
     },
     {
         "name": "LASER GLACE",
-        "desc": "Un rayon de glace frappe l’ennemi.",
+        "desc": "Un rayon de glace frappe l\u0027ennemi.",
         "attack_strength": 0.9,
         "success_rate": 1.0
     }

@@ -1,25 +1,25 @@
 [
     {
         "name": "POING-ECLAIR",
-        "desc": "Un coup de poing électrique vient frapper l’ennemi.",
+        "desc": "Un coup de poing \u00e9lectrique vient frapper l\u0027ennemi.",
         "attack_strength": 0.75,
         "success_rate": 1.0
     },
     {
         "name": "ECLAIR",
-        "desc": "Une décharge électrique tombe sur l’ennemi.",
+        "desc": "Une d\u00e9charge \u00e9lectrique tombe sur l\u0027ennemi.",
         "attack_strength": 0.5,
         "success_rate": 1.0
     },
     {
         "name": "CROCS-ECLAIR",
-        "desc": "Le lanceur utilise une morsure électrifiée.",
+        "desc": "Le lanceur utilise une morsure \u00e9lectrifi\u00e9e.",
         "attack_strength": 0.8,
         "success_rate": 0.95
     },
     {
         "name": "TONNERRE",
-        "desc": "Une grosse décharge électrique tombe sur l’ennemi.",
+        "desc": "Une grosse d\u00e9charge \u00e9lectrique tombe sur l\u0027ennemi.",
         "attack_strength": 0.9,
         "success_rate": 1.0
     }

@@ -3,8 +3,10 @@ import pygame
 import pokemon
 from pokemon import POKEMONS, Pokemon
 import pokemon_parser
+from pokemon_attacks.attack import Attack
 from ui.button import *
 from game_state import *
+from ui.text_box import TextBox
 
 BUTTON_BG = pygame.image.load("res/pokédex_button.png")
 FRAME = pygame.image.load("res/pokédex_frame.png")
@@ -91,11 +93,13 @@ class PokedexState(GameState):
     def render(self, screen: pygame.Surface):
         if self.in_info_menu:
             screen.blit(FRAME, (0, 0))
-            text.draw_centered_text(self.info_pkmn.get_name(), 72, 14, screen, text.font())
+            text.draw_centered_text(self.info_pkmn.get_name(), 72, 14, screen, pygame.font.Font("res/pkmndpb.ttf", 18))
+            # stats
             text.draw_centered_text("PV: " + str(self.info_pkmn.get_hp()), 8 + 64, 166, screen, text.font())
             text.draw_centered_text("Puissance: " + str(self.info_pkmn.get_strength()), 8 + 64, 186, screen, text.font())
             text.draw_centered_text("Défense: " + str(self.info_pkmn.get_defense()), 8 + 64, 206, screen, text.font())
             text.draw_centered_text("Rencontres: " + str(self.info_pkmn_cached_count), 8 + 64, 226, screen, text.font())
+            # types
             if self.info_pkmn.get_types()[1].get_type() == -1:
                 screen.blit(self.info_pkmn.get_types()[0].get_type_image(), (
                 24 + 48 - self.info_pkmn.get_types()[0].get_type_image().get_width() / 2,
@@ -106,9 +110,25 @@ class PokedexState(GameState):
                 screen.blit(self.info_pkmn.get_types()[1].get_type_image(), (
                 24 + 96 - self.info_pkmn.get_types()[1].get_type_image().get_width(),
                 124 + 13 - self.info_pkmn.get_types()[1].get_type_image().get_height() / 2))
+            # img pokemon
             screen.blit(self.info_pkmn_cached_img, (24, 28))
+
+            # attacks descs
+            text.draw_centered_text("ATTAQUES:", 162+111, 6+17, screen, pygame.font.Font("res/pkmndpb.ttf", 18))
+            pos_offset = 96
+            for i in range(len(self.info_pkmn.get_attacks())):
+                attack: Attack = self.info_pkmn.get_attacks()[i]
+                att_img = attack.get_attack_type().get_type_image()
+                text.draw_text(attack.get_name(), 172, 42 + i*pos_offset, screen, text.font())
+                screen.blit(att_img, (300 + 40, 42 + i*pos_offset))
+                # desc
+                att_desc_box = TextBox(attack.get_desc(), 166, 60 + i*pos_offset, 217)
+                att_desc_box.render(screen)
+                # attacks stats
+                text.draw_text("PUISSANCE : "+str(round(attack.get_attack_strength()*100)), 166, 110 + i*pos_offset, screen, text.font())
+                text.draw_text("PRECISION : " + str(round(attack.get_success_rate() * 100)), 166+128, 110 + i * pos_offset, screen, text.font())
+
         else:
-            # 64, 24 + 8 + (i * 48), 300, 48
             if self.list_offset > 0:
                 screen.blit(ARROW, (64 + 150 - ARROW.get_width()/2, 22))
             if self.list_offset < len(POKEMONS)-4:
