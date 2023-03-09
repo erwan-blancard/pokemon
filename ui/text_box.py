@@ -5,12 +5,13 @@ import text
 
 class TextBox:
 
-    def __init__(self, message: str, x, y, lenght, font: pygame.font.Font = text.font()):
+    def __init__(self, message: str, x, y, lenght, font: pygame.font.Font = text.font(), background_image: pygame.Surface = None):
         self.message = message
         self.x = x
         self.y = y
         self.__lenght = lenght
         self.__font = font
+        self.__background_image = background_image
         self.__lines = []
         self.parse_lines()
 
@@ -33,6 +34,10 @@ class TextBox:
         self.__lines = lines
 
     def render(self, screen: pygame.Surface):
+        # draw the background image
+        if self.__background_image is not None:
+            screen.blit(self.__background_image, (self.x, self.y))
+        # draw the lines
         char_height = self.__font.size("0")[1]
         for i in range(len(self.__lines)):
             text.draw_text(self.__lines[i], self.x, self.y + char_height*i, screen, self.__font)

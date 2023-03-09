@@ -25,8 +25,10 @@ def colorize(image, newColor):
 
 class PokedexState(GameState):
 
-    def __init__(self):
+    def __init__(self, quit_state=MENU, title_color=text.DEFAULT_COLOR):
         super().__init__()
+        self.quit_state = quit_state
+        self.title_color = title_color
 
         # create blank buttons
         for i in range(4):
@@ -57,6 +59,15 @@ class PokedexState(GameState):
                 # if pokémon was encountered at least once
                 if pokemon_parser.pokemon_in_pokedex(pkmn_name) and pokemon_parser.get_pokemon_encounter_count(pkmn_name) > 0:
                     img_label.blit(POKEMONS[pkmn_i].get_image_icon(), (0, 0))
+                    # show types
+                    if POKEMONS[pkmn_i].get_types()[1].get_type() == -1:
+                        img_pkmn_type = POKEMONS[pkmn_i].get_types()[0].get_type_image()
+                        img_label.blit(img_pkmn_type, (img_label.get_width() - 10 - img_pkmn_type.get_width(), img_label.get_height()/2 - img_pkmn_type.get_height()/2))
+                    else:
+                        for j in range(len(POKEMONS[pkmn_i].get_types())):
+                            img_pkmn_type = POKEMONS[pkmn_i].get_types()[j].get_type_image()
+                            img_label.blit(img_pkmn_type, (img_label.get_width() - 50 - img_pkmn_type.get_width() + j*40, img_label.get_height() / 2 - img_pkmn_type.get_height() / 2))
+
                     text.draw_text(POKEMONS[pkmn_i].get_name(), 56, 16, img_label, text.get_font(16))
                     self.buttons[i] = ButtonIcon(64, 24 + 8 + (i * 48), 300, 48, img_label,
                                                  lambda name=pkmn_name: self.show_info_menu_for_pokemon(name))
@@ -95,10 +106,10 @@ class PokedexState(GameState):
             screen.blit(FRAME, (0, 0))
             text.draw_centered_text(self.info_pkmn.get_name(), 72, 14, screen, pygame.font.Font("res/pkmndpb.ttf", 18))
             # stats
-            text.draw_centered_text("PV: " + str(self.info_pkmn.get_hp()), 8 + 64, 166, screen, text.font())
-            text.draw_centered_text("Puissance: " + str(self.info_pkmn.get_strength()), 8 + 64, 186, screen, text.font())
-            text.draw_centered_text("Défense: " + str(self.info_pkmn.get_defense()), 8 + 64, 206, screen, text.font())
-            text.draw_centered_text("Rencontres: " + str(self.info_pkmn_cached_count), 8 + 64, 226, screen, text.font())
+            text.draw_centered_text("PV: " + str(self.info_pkmn.get_hp()), 8 + 64, 166, screen)
+            text.draw_centered_text("Puissance: " + str(self.info_pkmn.get_strength()), 8 + 64, 186, screen)
+            text.draw_centered_text("Défense: " + str(self.info_pkmn.get_defense()), 8 + 64, 206, screen)
+            text.draw_centered_text("Rencontres: " + str(self.info_pkmn_cached_count), 8 + 64, 226, screen)
             # types
             if self.info_pkmn.get_types()[1].get_type() == -1:
                 screen.blit(self.info_pkmn.get_types()[0].get_type_image(), (
@@ -114,26 +125,26 @@ class PokedexState(GameState):
             screen.blit(self.info_pkmn_cached_img, (24, 28))
 
             # attacks descs
-            text.draw_centered_text("ATTAQUES:", 162+111, 6+17, screen, pygame.font.Font("res/pkmndpb.ttf", 18))
+            text.draw_centered_text("ATTAQUES:", 162+111, 6+17, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=self.title_color)
             pos_offset = 96
             for i in range(len(self.info_pkmn.get_attacks())):
                 attack: Attack = self.info_pkmn.get_attacks()[i]
                 att_img = attack.get_attack_type().get_type_image()
-                text.draw_text(attack.get_name(), 172, 42 + i*pos_offset, screen, text.font())
+                text.draw_text(attack.get_name(), 172, 42 + i*pos_offset, screen)
                 screen.blit(att_img, (300 + 40, 42 + i*pos_offset))
                 # desc
                 att_desc_box = TextBox(attack.get_desc(), 166, 60 + i*pos_offset, 217)
                 att_desc_box.render(screen)
                 # attacks stats
-                text.draw_text("PUISSANCE : "+str(round(attack.get_attack_strength()*100)), 166, 110 + i*pos_offset, screen, text.font())
-                text.draw_text("PRECISION : " + str(round(attack.get_success_rate() * 100)), 166+128, 110 + i * pos_offset, screen, text.font())
+                text.draw_text("PUISSANCE : "+str(round(attack.get_attack_strength()*100)), 166, 110 + i*pos_offset, screen)
+                text.draw_text("PRECISION : " + str(round(attack.get_success_rate() * 100)), 166+128, 110 + i * pos_offset, screen)
 
         else:
             if self.list_offset > 0:
                 screen.blit(ARROW, (64 + 150 - ARROW.get_width()/2, 22))
             if self.list_offset < len(POKEMONS)-4:
                 screen.blit(pygame.transform.flip(ARROW, flip_x=False, flip_y=True), (64 + 150 - ARROW.get_width() / 2, 26+8+(48*4)))
-            text.draw_aligned_text("Pokédex", screen.get_width()/2, 4, screen, pygame.font.Font("res/pkmndpb.ttf", 16))
+            text.draw_aligned_text("Pokédex", screen.get_width()/2, 4, screen, pygame.font.Font("res/pkmndpb.ttf", 16), color=self.title_color)
             super().render(screen)
 
     def input(self, event: pygame.event.Event):
@@ -141,8 +152,8 @@ class PokedexState(GameState):
             if event.key == pygame.K_ESCAPE:
                 if self.in_info_menu:
                     self.in_info_menu = False
-                else:
-                    set_state(MENU)
+                elif self.quit_state >= 0:
+                    set_state(self.quit_state)
 
             if not self.in_info_menu:
                 if event.key == pygame.K_RETURN:

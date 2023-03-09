@@ -66,10 +66,10 @@ while running:
 
     state.render(game_surface)
 
-    current_win_mode = "Fenêtré"
+    """current_win_mode = "Fenêtré"
     if fullscreen:
         current_win_mode = "Fullscreen"
-    text.draw_text(current_win_mode, 400 - 4 - text.font().size(current_win_mode)[0], 240 - text.font().size(current_win_mode)[1], game_surface, text.font())
+    text.draw_text(current_win_mode, 400 - 4 - text.font().size(current_win_mode)[0], 240 - text.font().size(current_win_mode)[1], game_surface)"""
 
     screen.blit(pygame.transform.scale(game_surface, (screen.get_width(), screen.get_height())), (0, 0))
 

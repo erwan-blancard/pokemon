@@ -24,7 +24,7 @@ class MenuState(GameState):
         super().render(screen)
         screen.blit(self.titlelogo, (screen.get_width()/2 - self.titlelogo.get_width()/2, 12))
         text.draw_aligned_text("LaPlateforme Édition", screen.get_width()/2+4, 12+self.titlelogo.get_height(), screen, pygame.font.Font("res/pkmndpb.ttf", 16))
-        text.draw_text("Pokémons: "+str(len(pokemon.POKEMONS)), 2, 224, screen, text.font())
+        text.draw_text("Pokémons: "+str(len(pokemon.POKEMONS)), 2, 224, screen)
 
     def input(self, event: pygame.event.Event):
         super().input(event)

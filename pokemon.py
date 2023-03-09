@@ -91,6 +91,7 @@ class Pokemon:
         self.__strength = strength
         self.__level = level
         self.__hp = hp
+        self.__current_hp = hp
         self.__defense = defense
         self.__types = (get_type_by_id(types[0]), get_type_by_id(types[1]))
         self.__attacks = (get_attack_by_type_and_name(attacks[0], type_attacks[0]),
@@ -113,6 +114,9 @@ class Pokemon:
     def get_hp(self):
         return self.__hp
 
+    def get_current_hp(self):
+        return self.__current_hp
+
     def get_defense(self):
         return self.__defense
 
@@ -132,10 +136,10 @@ class Pokemon:
         damage = amount - self.__defense
         if damage < 1:
             damage = 1
-        if self.__hp - damage < 0:
-            self.__hp = 0
+        if self.__current_hp - damage < 0:
+            self.__current_hp = 0
         else:
-            self.__hp -= damage
+            self.__current_hp -= damage
 
     def __get_pokemon_image(self, path: str):
         try:
@@ -153,6 +157,13 @@ class Pokemon:
     def get_image_front(self):
         return self.__get_pokemon_image("res/pokemons/{}_front.png")
 
+    def copy(self):
+        """returns a copy of the Pokémon as a new instance of the Pokemon class."""
+        return Pokemon(self.get_name(), self.get_strength(), self.get_level(), self.get_hp(), self.get_defense(),
+                       (self.get_types()[0].get_type(), self.get_types()[1].get_type()),
+                       (self.get_attacks()[0].get_attack_type().get_type(), self.get_attacks()[1].get_attack_type().get_type()),
+                       (self.get_attacks()[0].get_name(), self.get_attacks()[1].get_name()))
+
 
 # stores pokémons
 POKEMONS: list[Pokemon] = []
@@ -163,4 +174,3 @@ def get_pokemon_by_name(name: str):
         if pkmn.get_name() == name:
             return pkmn
     return None
-

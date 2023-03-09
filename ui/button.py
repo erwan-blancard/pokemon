@@ -13,7 +13,7 @@ class BaseButton:
         self.height = height
 
     def render(self, screen: pygame.Surface):
-        #pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height), width=1)
+        pygame.draw.rect(screen, (255, 0, 0), (self.x, self.y, self.width, self.height), width=1)
         pass
 
     def render_cursor(self, screen: pygame.Surface, right=False, offset=0):
