@@ -123,6 +123,9 @@ class Pokemon:
     def get_types(self):
         return self.__types
 
+    def get_types_type(self):
+        return self.__types[0].get_type(), self.__types[1].get_type()
+
     def get_attacks(self):
         return self.__attacks
 
@@ -136,6 +139,8 @@ class Pokemon:
         damage = amount - self.__defense
         if damage < 1:
             damage = 1
+        if amount <= 0:
+            damage = 0
         if self.__current_hp - damage < 0:
             self.__current_hp = 0
         else:

@@ -27,6 +27,12 @@ class Attack:
     def get_success_rate(self):
         return self.__success_rate
 
+    def is_super_effective(self, pkmn_strength: int, damage: int):
+        return self.__attack_strength * pkmn_strength < damage
+
+    def is_not_effective(self, pkmn_strength: int, damage: int):
+        return self.__attack_strength * pkmn_strength > damage
+
     # returns -1 if attack is missed
     def get_attack_damage(self, pkmn_strength: int, types_opponent: tuple[int, int]):
         r = random.random()

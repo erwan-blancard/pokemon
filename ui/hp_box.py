@@ -68,6 +68,6 @@ class HpBox:
         str_hp = str(self.__pkmn.get_hp())
         for c in range(len(str(self.__pkmn.get_hp())), 3):
             str_hp = " " + str_hp
-        text.draw_text("PV:"+str_curr_hp+"/"+str_hp, self.x + 56*2, self.y + 18*2, screen)
+        text.draw_text(str_curr_hp+"/"+str_hp, self.x + 64*2, self.y + 18*2, screen)
         bar = self.get_bar()
         screen.blit(bar, (self.x + _BAR_DIMS[0], self.y + _BAR_DIMS[1]))

@@ -133,7 +133,7 @@ class PokedexState(GameState):
                 text.draw_text(attack.get_name(), 172, 42 + i*pos_offset, screen)
                 screen.blit(att_img, (300 + 40, 42 + i*pos_offset))
                 # desc
-                att_desc_box = TextBox(attack.get_desc(), 166, 60 + i*pos_offset, 217)
+                att_desc_box = TextBox(attack.get_desc(), 166, 60 + i*pos_offset, 217, line_limit=3)
                 att_desc_box.render(screen)
                 # attacks stats
                 text.draw_text("PUISSANCE : "+str(round(attack.get_attack_strength()*100)), 166, 110 + i*pos_offset, screen)

@@ -28,14 +28,18 @@ class BaseButton:
 
 class ButtonLabel(BaseButton):
 
-    def __init__(self, label, x, y, width, height, command=None):
+    def __init__(self, label, x, y, width, height, command=None, center_text=True):
         super().__init__(x, y, width, height)
         self.label = label
         self.font = text.get_font(height)
         self.command = command
+        self.center_text = center_text
 
     def render(self, screen: pygame.Surface):
-        text.draw_centered_text(self.label, self.x+(self.width/2), self.y+(self.height/2), screen, self.font)
+        if self.center_text:
+            text.draw_centered_text(self.label, self.x+(self.width/2), self.y+(self.height/2), screen, self.font)
+        else:
+            text.draw_text(self.label, self.x, self.y + (self.height - self.font.size(self.label)[1])/2, screen, self.font)
         super().render(screen)
 
     def execute(self):

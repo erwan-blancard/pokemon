@@ -5,22 +5,27 @@ import text
 
 class TextBox:
 
-    def __init__(self, message: str, x, y, lenght, font: pygame.font.Font = text.font(), background_image: pygame.Surface = None):
-        self.message = message
+    def __init__(self, message: str, x, y, lenght, font: pygame.font.Font = text.font(), line_limit=-1):
+        self.__message = message
         self.x = x
         self.y = y
         self.__lenght = lenght
         self.__font = font
-        self.__background_image = background_image
         self.__lines = []
+        self.__line_limit = line_limit
         self.parse_lines()
 
     def change_font(self, font: pygame.font.Font):
         self.__font = font
         self.parse_lines()
 
+    def change_text(self, message: str):
+        if message != self.__message:
+            self.__message = message
+            self.parse_lines()
+
     def parse_lines(self):
-        words = self.message.split()
+        words = self.__message.split()
         lines: list[str] = [""]
         current_line = 0
         for word in words:
@@ -34,10 +39,11 @@ class TextBox:
         self.__lines = lines
 
     def render(self, screen: pygame.Surface):
-        # draw the background image
-        if self.__background_image is not None:
-            screen.blit(self.__background_image, (self.x, self.y))
         # draw the lines
         char_height = self.__font.size("0")[1]
         for i in range(len(self.__lines)):
-            text.draw_text(self.__lines[i], self.x, self.y + char_height*i, screen, self.__font)
+            if i == self.__line_limit-1:
+                text.draw_text(self.__lines[i][:-3] + "...", self.x, self.y + char_height * i, screen, self.__font)
+                break
+            else:
+                text.draw_text(self.__lines[i], self.x, self.y + char_height*i, screen, self.__font)
