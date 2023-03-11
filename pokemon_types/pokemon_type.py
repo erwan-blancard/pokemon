@@ -40,6 +40,11 @@ class Type:
     def get_type_image(self):
         return self._get_image()
 
+    def get_none_image(self):
+        surf = pygame.Surface((32, 16), pygame.SRCALPHA)
+        surf.blit(TYPES_ATLAS, ((19 % 4) * -32, (19 // 4) * -16))
+        return surf
+
     def get_attack_multiplier(self, types_opponent: tuple[int, int]):
         multiplier = 1.0
         for type_opp in types_opponent:

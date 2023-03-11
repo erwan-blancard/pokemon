@@ -6,7 +6,7 @@ import text
 from menu import MenuState
 from in_game import InGameState
 from pokedex import PokedexState
-from pokemon_maker import PokemonMakerState
+from pokemon_maker.pokemon_maker import PokemonMakerState
 
 
 pygame.init()
@@ -16,6 +16,10 @@ if not pygame.font.get_init():
 
 # load pokémon list in package pokemon
 pokemon_parser.load_pokemons()
+
+# sets first pokémon unlocked
+if not pokemon_parser.pokemon_in_pokedex(pokemon.POKEMONS[0].get_name()):
+    pokemon_parser.add_to_pokedex(pokemon.POKEMONS[0].get_name())
 
 screen = pygame.display.set_mode((400*2, 240*2))    # 400x240
 pygame.display.set_caption("Pokémon  |  LaPlateforme Édition")
@@ -29,6 +33,20 @@ game_state.state = 0
 state = MenuState()
 
 fullscreen = False
+
+
+def enable_fullscreen():
+    global fullscreen
+    pygame.display.set_mode(flags=pygame.FULLSCREEN)
+    fullscreen = True
+
+
+def disable_fullscreen():
+    global screen
+    global fullscreen
+    screen = pygame.display.set_mode((400 * 2, 240 * 2))
+    fullscreen = False
+
 
 running = True
 
@@ -53,11 +71,9 @@ while running:
             running = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_F11:
             if fullscreen:
-                screen = pygame.display.set_mode((400 * 2, 240 * 2))
-                fullscreen = False
+                disable_fullscreen()
             else:
-                pygame.display.set_mode(flags=pygame.FULLSCREEN)
-                fullscreen = True
+                enable_fullscreen()
         state.input(event)
 
     state.update()
@@ -70,6 +86,7 @@ while running:
         current_win_mode = "Fenêtré"
         if fullscreen:
             current_win_mode = "Fullscreen"
+        current_win_mode += ' (F11)'
         text.draw_text(current_win_mode, 400 - 4 - text.font().size(current_win_mode)[0], 240 - text.font().size(current_win_mode)[1], game_surface)
 
     screen.blit(pygame.transform.scale(game_surface, (screen.get_width(), screen.get_height())), (0, 0))

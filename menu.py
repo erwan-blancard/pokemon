@@ -3,7 +3,7 @@ import pygame
 import pokemon
 import text
 from game_state import *
-from ui.button import ButtonLabel, ButtonIcon
+from ui.button_icon import ButtonIcon
 
 
 class MenuState(GameState):

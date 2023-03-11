@@ -1,5 +1,7 @@
 import pygame
-import ui.button as button
+from ui.button_base import *
+from ui.button_label import *
+from ui.button_icon import *
 
 # Holds the current state ID of the game
 state = 0
@@ -21,7 +23,7 @@ def set_state(newstate):
 # base class for states with basic button support
 class GameState:
     def __init__(self):
-        self.buttons: list[button.BaseButton] = []
+        self.buttons: list[BaseButton] = []
         self.selected_button = 0
         self.render_cursor_right = False
 
@@ -36,6 +38,12 @@ class GameState:
             self.selected_button -= 1
         else:
             self.selected_button = len(self.buttons)-1
+
+    def render_overlay(self, screen: pygame.Surface):
+        rect_over = pygame.Surface((400, 240))
+        rect_over.set_alpha(160)
+        rect_over.fill((40, 40, 40))
+        screen.blit(rect_over, (0, 0))
 
     def update(self):
         pass

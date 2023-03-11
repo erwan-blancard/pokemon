@@ -1,13 +1,12 @@
 import random
 import time
-
 import pygame
 
-import game_state
+import pokemon_parser
 import text
-import ui.hp_box
+import game_state
 from pokedex import PokedexState
-from ui.button import *
+from ui.button_label import *
 from pokemon import *
 from ui.hp_box import HpBox
 from pokemon_attacks.attack import Attack
@@ -20,6 +19,8 @@ SCENE_FRAME = pygame.transform.scale(pygame.image.load("res/scene_frame.png"), (
 INTRO_TIME = 1.0
 SPEECH_INTERVAL_TIME = 0.9
 DMG_INTERVAL_TIME = 0.1
+WAIT_DEATH_TIME = 1.0
+PKMN_PHASE_OUT = 0.4
 
 # TEXTS
 ATT_USE = "{} utilise {}!"
@@ -27,6 +28,7 @@ ATT_SUP_EFF = "C'est super efficace!"
 ATT_NOT_EFF = "Ce n'est pas très efficace..."
 ATT_NO_EFF = "...mais {} n'a aucun effet!"
 ATT_MISS = "...mais {} a raté!"
+PKMN_KO = "{} est K.O!"
 
 
 def render_overlay(screen: pygame.Surface):
@@ -43,6 +45,8 @@ class Combat:
         self.__pkmn_player_cached_img = pygame.transform.scale(self.__pkmn_player.get_image_back(), (96*2, 96*2))
         self.__pkmn_opponent = pkmn_opponent
         self.__pkmn_opponent_cached_img = pygame.transform.scale(self.__pkmn_opponent.get_image_front(), (96*2, 96*2))
+
+        pokemon_parser.add_to_pokedex(self.__pkmn_opponent.get_name())
 
         # pokédex menu
         self.__pokedex_menu: PokedexState = None
@@ -72,11 +76,12 @@ class Combat:
         self.__in_choose_attacks = False
         att_1 = self.__pkmn_player.get_attacks()[0]
         att_2 = self.__pkmn_player.get_attacks()[1]
-        self.__buttons_choose_attack = [
-            ButtonLabel(att_1.get_name(), 14, 0, text.font().size(att_1.get_name())[0]+2, 16, command=lambda: self.__set_attack_state(0), center_text=False),
-            ButtonLabel(att_2.get_name(), 14+28+text.font().size(att_1.get_name())[0]+2, 0, text.font().size(att_2.get_name())[0]+2, 16, command=lambda: self.__set_attack_state(1), center_text=False)
-        ]
+        self.__buttons_choose_attack = []
         """Button list for attack selection"""
+        if att_1.get_attack_type().get_type() != -1:
+            self.__buttons_choose_attack.append(ButtonLabel(att_1.get_name(), 14, 0, text.font().size(att_1.get_name())[0]+2, 16, command=lambda: self.__set_attack_state(0), center_text=False))
+        if att_2.get_attack_type().get_type() != -1:
+            self.__buttons_choose_attack.append(ButtonLabel(att_2.get_name(), 14+28+text.font().size(att_1.get_name())[0]+2, 0, text.font().size(att_2.get_name())[0]+2, 16, command=lambda: self.__set_attack_state(1), center_text=False))
 
         # manage attack turn anims
         self.__in_attack_state = False
@@ -99,12 +104,17 @@ class Combat:
         self.__player_attack_error = False
         self.__opponent_attack_error = False
 
+        # death state
+        self.__phase_out_anim_finished = False
+
         self.__timer = time.time()
 
     def __set_attack_state(self, player_attack_index):
         # pokémons attacks
         self.__player_attack_index = player_attack_index
-        self.__opponent_attack_index = random.randint(0, 1)
+        self.__opponent_attack_index = 0
+        if type(self.__pkmn_opponent.get_attacks()[1].get_attack_type()) != Type:
+            self.__opponent_attack_index = random.randint(0, 1)
 
         # attack damages + pending damages
         self.__player_att_damage = self.__pkmn_player.get_attack_damage(self.__player_attack_index, self.__pkmn_opponent.get_types_type())
@@ -152,35 +162,39 @@ class Combat:
         return button_list
 
     def __update_attack_state(self):
-        if self.__in_attack_state:
-            time_passed = time.time() - self.__timer
-            if not self.__opponent_damaged:
-                if time_passed >= SPEECH_INTERVAL_TIME:
-                    self.__damaging_opponent = True
-                    self.__timer = time.time()
-                if self.__damaging_opponent:
-                    # if the player's attack missed or is lower or equal to 0
-                    if self.__player_attack_error:
-                        if time_passed >= SPEECH_INTERVAL_TIME:
-                            self.__opponent_damaged = True
-                            self.__timer = time.time()
-                    # else if the player's attack don't miss or is greater than 0
-                    elif not self.__player_att_damage <= 0:
-                        if time_passed >= DMG_INTERVAL_TIME and self.__pending_player_att_damage > 0:
-                            self.__pkmn_opponent.damage(1)
-                            self.__pending_player_att_damage -= 1
-
-                            if self.__pkmn_opponent.get_current_hp() <= 0:
-                                self.__pending_player_att_damage = 0
-
-                            self.__timer = time.time()
-                        elif self.__pending_player_att_damage <= 0:
-                            self.__opponent_damaged = True
-                    else:
-                        self.__player_attack_error = True
+        time_passed = time.time() - self.__timer
+        if not self.__opponent_damaged:
+            if time_passed >= SPEECH_INTERVAL_TIME:
+                self.__damaging_opponent = True
+                self.__timer = time.time()
+            if self.__damaging_opponent:
+                # if the player's attack missed or is lower or equal to 0
+                if self.__player_attack_error:
+                    if time_passed >= SPEECH_INTERVAL_TIME:
+                        self.__opponent_damaged = True
                         self.__timer = time.time()
+                # else if the player's attack don't miss or is greater than 0
+                elif not self.__player_att_damage <= 0:
+                    if time_passed >= DMG_INTERVAL_TIME and self.__pending_player_att_damage > 0:
+                        self.__pkmn_opponent.damage(1)
+                        self.__pending_player_att_damage -= 1
 
-            elif not self.__player_damaged:
+                        if self.is_opponent_dead():
+                            self.__pending_player_att_damage = 0
+
+                        self.__timer = time.time()
+                    elif self.__pending_player_att_damage <= 0:
+                        self.__opponent_damaged = True
+                else:
+                    self.__player_attack_error = True
+                    self.__timer = time.time()
+
+        elif not self.__player_damaged:
+            if self.is_opponent_dead():
+                if time_passed >= WAIT_DEATH_TIME:
+                    self.__timer = time.time()
+                    self.__in_attack_state = False
+            else:
                 if time_passed >= SPEECH_INTERVAL_TIME:
                     self.__damaging_player = True
                     self.__timer = time.time()
@@ -196,7 +210,7 @@ class Combat:
                             self.__pkmn_player.damage(1)
                             self.__pending_opponent_att_damage -= 1
 
-                            if self.__pkmn_player.get_current_hp() <= 0:
+                            if self.is_player_dead():
                                 self.__pending_opponent_att_damage = 0
 
                             self.__timer = time.time()
@@ -206,9 +220,20 @@ class Combat:
                         self.__opponent_attack_error = True
                         self.__timer = time.time()
 
-            # exit attack state
-            if self.__player_damaged:
-                self.__in_attack_state = False
+        # exit attack state
+        if self.__player_damaged:
+            self.__in_attack_state = False
+            self.__timer = time.time()
+            self.__selected_button = 0
+
+    def is_player_dead(self):
+        return self.__pkmn_player.get_current_hp() <= 0
+
+    def is_opponent_dead(self):
+        return self.__pkmn_opponent.get_current_hp() <= 0
+
+    def is_phase_out_anim_finished(self):
+        return self.__phase_out_anim_finished
 
     def update(self):
         if not self.__intro_finished:
@@ -225,12 +250,22 @@ class Combat:
                 self.__pokedex_menu.update()
 
             # update attack state
-            self.__update_attack_state()
+            if self.__in_attack_state:
+                self.__update_attack_state()
+            elif self.is_player_dead() or self.is_opponent_dead():
+                if time.time() - self.__timer >= PKMN_PHASE_OUT:
+                    self.__phase_out_anim_finished = True
 
     def render(self, screen: pygame.Surface):
         screen.blit(FIGHT_SCENE, (0, 0))
-        screen.blit(self.__pkmn_opponent_cached_img, (self.__pkmn_opponent_x - self.__pkmn_opponent_cached_img.get_width(), 0))
-        screen.blit(self.__pkmn_player_cached_img, (self.__pkmn_player_x, 100))
+        offset_player = 0
+        offset_opponent = 0
+        if self.is_player_dead() and not self.__in_attack_state:
+            offset_player = (time.time() - self.__timer)*96*2*(1/PKMN_PHASE_OUT)
+        if self.is_opponent_dead() and not self.__in_attack_state:
+            offset_opponent = (time.time() - self.__timer)*96*2*(1/PKMN_PHASE_OUT)
+        screen.blit(self.__pkmn_opponent_cached_img, (self.__pkmn_opponent_x - self.__pkmn_opponent_cached_img.get_width(), 0), (0, -offset_opponent, self.__pkmn_opponent_cached_img.get_width(), self.__pkmn_opponent_cached_img.get_height()))
+        screen.blit(self.__pkmn_player_cached_img, (self.__pkmn_player_x, 100), (0, -offset_player, self.__pkmn_player_cached_img.get_width(), self.__pkmn_player_cached_img.get_height()))
         if self.__intro_finished:
             self.__player_hp_box.render(screen)
             self.__opponent_hp_box.render(screen)
@@ -240,7 +275,16 @@ class Combat:
                 self.__pokedex_menu.render(screen)
             else:
                 screen.blit(SCENE_FRAME, (2, 0))
-                if self.__in_attack_state:
+                if self.is_player_dead() or self.is_opponent_dead():
+                    if self.is_phase_out_anim_finished():
+                        text_state = PKMN_KO
+                        if self.is_player_dead():
+                            text_state = text_state.format(self.__pkmn_player.get_name())
+                        if self.is_opponent_dead():
+                            text_state = text_state.format(self.__pkmn_opponent.get_name())
+                        text_box = TextBox(text_state, 6 * 2, 0, 92 * 2, line_limit=2)
+                        text_box.render(screen)
+                elif self.__in_attack_state:
                     text_state = ""
                     if not self.__opponent_damaged:
                         player_attack: Attack = self.__pkmn_player.get_attacks()[self.__player_attack_index]
@@ -297,7 +341,7 @@ class Combat:
                         self.__goto_previous_menu()
                 if self.is_pokedex_open():
                     self.__pokedex_menu.input(event)
-            else:
+            elif not self.__in_attack_state and not (self.is_player_dead() or self.is_opponent_dead()):
                 # get the currently used button list
                 button_list = self.__get_current_button_list()
                 if event.type == pygame.KEYDOWN:

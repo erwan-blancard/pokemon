@@ -38,12 +38,12 @@ class TextBox:
 
         self.__lines = lines
 
-    def render(self, screen: pygame.Surface):
+    def render(self, screen: pygame.Surface, color=text.DEFAULT_COLOR):
         # draw the lines
         char_height = self.__font.size("0")[1]
         for i in range(len(self.__lines)):
             if i == self.__line_limit-1:
-                text.draw_text(self.__lines[i][:-3] + "...", self.x, self.y + char_height * i, screen, self.__font)
+                text.draw_text(self.__lines[i][:-3] + "...", self.x, self.y + char_height * i, screen, self.__font, color=color)
                 break
             else:
-                text.draw_text(self.__lines[i], self.x, self.y + char_height*i, screen, self.__font)
+                text.draw_text(self.__lines[i], self.x, self.y + char_height*i, screen, self.__font, color=color)

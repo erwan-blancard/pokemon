@@ -69,15 +69,36 @@ def get_type_by_id(ID):
 def get_attack_by_type_and_name(name, att_type_id: int):
     att_type: Type = get_type_by_id(att_type_id)
     try:
-        file = open("pokemon_attacks/"+att_type.get_name()+".json")
-        json_dict = json.load(file)
-        file.close()
-        for attack in json_dict:
-            if attack["name"] == name:
-                return Attack(attack["name"], attack["desc"], get_type_by_id(att_type.get_type()), attack["attack_strength"], attack["success_rate"])
+        if type(att_type) != Type and type(att_type) != Invalid:
+            file = open("pokemon_attacks/"+att_type.get_name()+".json")
+            json_dict = json.load(file)
+            file.close()
+            for attack in json_dict:
+                if attack["name"] == name:
+                    return Attack(attack["name"], attack["desc"], get_type_by_id(att_type.get_type()), attack["attack_strength"], attack["success_rate"])
+        elif type(att_type) == Invalid:
+            return Attack("???", "???", Invalid(), 0, 0)
     except Exception as e:
         print(e)
-    return Attack("???", "???", Invalid(), 0, 0)
+    return Attack("---", "---", Type(), -1, -1)
+
+
+def attack_exists(name, att_type_id: int):
+    att_type: Type = get_type_by_id(att_type_id)
+    try:
+        if type(att_type) != Type and type(att_type) != Invalid:
+            file = open("pokemon_attacks/"+att_type.get_name()+".json")
+            json_dict = json.load(file)
+            file.close()
+            for attack in json_dict:
+                if attack["name"] == name:
+                    test_attack = Attack(attack["name"], attack["desc"], get_type_by_id(att_type.get_type()), attack["attack_strength"], attack["success_rate"])
+                    return True
+        else:
+            return False
+    except Exception as e:
+        print(e)
+    return False
 
 
 class Pokemon:

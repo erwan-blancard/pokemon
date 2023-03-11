@@ -85,13 +85,13 @@
     },
     {
         "name": "Magicarpe",
-        "strength": 8,
-        "hp": 99,
-        "defense": 2,
+        "strength": 10,
+        "hp": 20,
+        "defense": 1,
         "type_ID_1": 11,
         "type_ID_2": -1,
         "attack_type_1": 0,
-        "attack_name_1": "CHARGE",
+        "attack_name_1": "TREMPETE",
         "attack_type_2": -1,
         "attack_name_2": "invalid"
     },

@@ -4,7 +4,7 @@ import pokemon
 from pokemon import POKEMONS, Pokemon
 import pokemon_parser
 from pokemon_attacks.attack import Attack
-from ui.button import *
+from ui.button_icon import *
 from game_state import *
 from ui.text_box import TextBox
 
@@ -136,8 +136,14 @@ class PokedexState(GameState):
                 att_desc_box = TextBox(attack.get_desc(), 166, 60 + i*pos_offset, 217, line_limit=3)
                 att_desc_box.render(screen)
                 # attacks stats
-                text.draw_text("PUISSANCE : "+str(round(attack.get_attack_strength()*100)), 166, 110 + i*pos_offset, screen)
-                text.draw_text("PRECISION : " + str(round(attack.get_success_rate() * 100)), 166+128, 110 + i * pos_offset, screen)
+                power = round(attack.get_attack_strength()*100)
+                rate = round(attack.get_success_rate() * 100)
+                if power <= 0:
+                    power = "N/A"
+                if rate <= 0:
+                    rate = "N/A"
+                text.draw_text("PUISSANCE : "+str(power), 166, 110 + i*pos_offset, screen)
+                text.draw_text("PRECISION : " + str(rate), 166+128, 110 + i * pos_offset, screen)
 
         else:
             if self.list_offset > 0:
