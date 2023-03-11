@@ -51,7 +51,7 @@ def open_file(FILE=FILE_POKEMONS, access_type="r"):
             print(e)
             return None
     else:
-        create_file()
+        create_file(FILE)
 
 
 def get_JSON(file):
