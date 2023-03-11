@@ -11,7 +11,7 @@ from game_state import GameState
 from pokemon import *
 from combat import Combat
 from ui.button_icon import ButtonIcon
-from pokedex import BUTTON_BG,ARROW
+from pokedex import BUTTON_BG, ARROW
 from ui.button_label import ButtonLabel
 
 
@@ -88,6 +88,7 @@ class InGameState(GameState):
 
     def __start_battle(self):
         if self.__pkmn_player is not None:
+            self.__timer = 0
             self.__pkmn_opponent = POKEMONS[random.randint(0, len(POKEMONS) - 1)]
             self.__in_battle = True
             self.__combat = Combat(self.__pkmn_player.copy(), self.__pkmn_opponent.copy())
