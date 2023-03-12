@@ -28,9 +28,9 @@ class SubMenuAttacks(SubMenu):
             if i == self.__attack_name_right_focus:
                 color = (255, 255, 255)
             if (not self.__types_menu.is_left_menu_opened() and i == 0) or (not self.__types_menu.is_right_menu_opened() and i == 1):
-                text.draw_aligned_text(self.__attack_names[i]+"_", 100 + 16 + i * 168, 132, screen, pygame.font.Font("res/pkmndpb.ttf", 12), color=color)
-            text_box = TextBox(desc, 100 + 16 + (i * 168) - 64, 132+18, 128, font=pygame.font.Font("res/pkmndpb.ttf", 12))
-            text_box.render(screen, (255, 255, 255))
+                text.draw_aligned_text(self.__attack_names[i]+"_", 100 + 16 + i * 168, 72, screen, pygame.font.Font("res/pkmndpb.ttf", 12), color=color)
+                text_box = TextBox(desc, 100 + 16 + (i * 168) - 64, 128, 128, font=pygame.font.Font("res/pkmndpb.ttf", 12))
+                text_box.render(screen, (255, 255, 255))
 
     def input(self, event: pygame.event.Event):
         if self.__types_menu_focus:

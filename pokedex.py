@@ -135,6 +135,8 @@ class PokedexState(GameState):
             # pokemon level
             if self.info_pkmn_owned:
                 text.draw_text("Lvl: "+str(self.info_pkmn.get_level()), 148, 9, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=self.title_color)
+            else:
+                text.draw_text("Stats Lvl  1", 148, 9, screen, pygame.font.Font("res/pkmndpb.ttf", 12), color=self.title_color)
 
             # attacks descs
             text.draw_centered_text("ATTAQUES:", 162+111, 6+17, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=self.title_color)

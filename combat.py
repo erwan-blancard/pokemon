@@ -232,6 +232,9 @@ class Combat:
     def is_opponent_dead(self):
         return self.__pkmn_opponent.get_current_hp() <= 0
 
+    def get_opponent_level(self):
+        return self.__pkmn_opponent.get_level()
+
     def is_phase_out_anim_finished(self):
         return self.__phase_out_anim_finished
 

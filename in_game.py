@@ -103,6 +103,8 @@ class InGameState(GameState):
 
     def __start_battle(self):
         if self.__pkmn_player is not None:
+            if self.__pkmn_player_has_evolved:
+                self.__pkmn_player = pokemon.get_pokemon_by_name(self.__pkmn_player.get_evolution_name())
             self.__timer = 0
             self.__pkmn_player_has_evolved = False
             self.__pkmn_player_reached_level_limit = False
@@ -132,7 +134,7 @@ class InGameState(GameState):
                             pokemon_parser.set_team_level_of_pokemon(pkmn_evolution.get_name(), POKEMONS[i].get_evolution_level())
                             # remove old pkmn
                             pokemon_parser.set_pokemon_in_team_state(POKEMONS[i].get_name(), False)
-                            pokemon_parser.set_team_level_of_pokemon(POKEMONS[i].get_name(), False)
+                            pokemon_parser.set_team_level_of_pokemon(POKEMONS[i].get_name(), 1)
                             self.__pkmn_player_has_evolved = True
                 else:
                     self.__pkmn_player_reached_level_limit = True
@@ -146,6 +148,9 @@ class InGameState(GameState):
             if self.__combat.is_phase_out_anim_finished() and self.__timer == 0:
                 self.__timer = time.time()
                 if self.__combat.is_opponent_dead():
+                    if not pokemon_parser.is_pokemon_in_team(self.__pkmn_opponent.get_name()):
+                        pokemon_parser.set_pokemon_in_team_state(self.__pkmn_opponent.get_name(), True)
+                        pokemon_parser.set_team_level_of_pokemon(self.__pkmn_opponent.get_name(), self.__combat.get_opponent_level())
                     self.__add_level_to_player()
 
     def render(self, screen: pygame.Surface):
@@ -162,9 +167,13 @@ class InGameState(GameState):
                         text.draw_aligned_text(self.__pkmn_player.get_name() + "  ->  Lvl  " + str(self.__pkmn_player.get_name()), screen.get_width()/2, 72, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
                     else:
                         if self.__pkmn_player_has_evolved:
-                            text.draw_aligned_text(self.__pkmn_player.get_name() + " gagne un niveau !", screen.get_width() / 2, 40, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
-                            text.draw_aligned_text("Lvl  " + str(self.__pkmn_player.get_level() - 1) + "  ->  " + str(self.__pkmn_player.get_level()), screen.get_width() / 2, 60, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
-                            text.draw_aligned_text(self.__pkmn_player.get_name() + " évolue en " + self.__pkmn_player.get_evolution_name() + " !", screen.get_width()/2, 88, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
+                            text.draw_aligned_text(self.__pkmn_player.get_name() + " gagne un niveau !", screen.get_width() / 2, 40+16, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
+                            text.draw_aligned_text("Lvl  " + str(self.__pkmn_player.get_level() - 1) + "  ->  " + str(self.__pkmn_player.get_level()), screen.get_width() / 2, 60+16, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
+                            text.draw_aligned_text(self.__pkmn_player.get_name() + " évolue en " + self.__pkmn_player.get_evolution_name() + " !", screen.get_width()/2, 88+16, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
+                            # imgs
+                            text.draw_aligned_text("->", screen.get_width()/2, 128+24, screen, pygame.font.Font("res/pkmndpb.ttf", 12), color=(255, 255, 255))
+                            screen.blit(self.__pkmn_player.get_image_icon(), (screen.get_width()/2-64, 128))
+                            screen.blit(pokemon.get_pokemon_by_name(self.__pkmn_player.get_evolution_name()).get_image_icon(), (screen.get_width() / 2 + 24, 128))
                         else:
                             text.draw_aligned_text(self.__pkmn_player.get_name() + " gagne un niveau !", screen.get_width()/2, 72, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
                             text.draw_aligned_text("Lvl  " + str(self.__pkmn_player.get_level()-1) + "  ->  " + str(self.__pkmn_player.get_level()), screen.get_width()/2, 96, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
