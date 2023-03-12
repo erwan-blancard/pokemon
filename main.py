@@ -7,6 +7,7 @@ from menu import MenuState
 from in_game import InGameState
 from pokedex import PokedexState
 from pokemon_maker.pokemon_maker import PokemonMakerState
+from ask_reset_state import AskResetState
 
 
 pygame.init()
@@ -62,6 +63,8 @@ while running:
             state = PokedexState()
         elif game_state.state == game_state.POKEMON_MAKER:
             state = PokemonMakerState()
+        elif game_state.state == game_state.ASK_RESET:
+            state = AskResetState()
         else:
             print("Invalid state id:", game_state.state)
         game_state.update_pending = False

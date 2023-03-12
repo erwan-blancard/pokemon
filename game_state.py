@@ -11,6 +11,7 @@ MENU = 0
 INGAME = 1
 POKEDEX = 2
 POKEMON_MAKER = 3
+ASK_RESET = 4
 
 
 def set_state(newstate):

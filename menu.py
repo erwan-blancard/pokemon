@@ -13,7 +13,8 @@ class MenuState(GameState):
         self.buttons += [
             ButtonLabel("Jouer", 200-22, 128, 44, 24, command=lambda: set_state(INGAME)),
             ButtonLabel("Pokédex", 200-30, 152, 60, 24, command=lambda: set_state(POKEDEX)),
-            ButtonLabel("Ajouter un Pokémon", 200-60, 176, 120, 24, command=lambda: set_state(POKEMON_MAKER))
+            ButtonLabel("Ajouter un Pokémon", 200-60, 176, 120, 24, command=lambda: set_state(POKEMON_MAKER)),
+            ButtonLabel("Réinitialiser le jeu...", 200-62, 200, 124, 24, command=lambda: set_state(ASK_RESET))
         ]
         self.titlelogo = pygame.image.load("res/logo.png")
 
