@@ -290,7 +290,7 @@ def add_pokemon(name: str, strength: int, hp: int, defense: int, type_ID_1: int,
 
 
 # returns False if the pokémon couldn't be added and True if it was added to "pokédex.json"
-def add_to_pokedex(name: str):
+def add_to_pokedex(name: str, default_in_team=True):
     file = open_file(FILE=FILE_POKEDEX)
     json_dict = get_JSON(file)
     if file is not None:
@@ -311,7 +311,7 @@ def add_to_pokedex(name: str):
             # if not in pokédex
             else:
                 try:
-                    json_dict.append({"name": name, "count": 1, "team_level": 1, "in_team": True})
+                    json_dict.append({"name": name, "count": 1, "team_level": 1, "in_team": default_in_team})
                     write_to_file(json_dict, FILE=FILE_POKEDEX)
                     return True
                 except Exception as e:

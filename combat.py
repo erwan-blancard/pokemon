@@ -46,7 +46,7 @@ class Combat:
         self.__pkmn_opponent = pkmn_opponent
         self.__pkmn_opponent_cached_img = pygame.transform.scale(self.__pkmn_opponent.get_image_front(), (96*2, 96*2))
 
-        pokemon_parser.add_to_pokedex(self.__pkmn_opponent.get_name())
+        pokemon_parser.add_to_pokedex(self.__pkmn_opponent.get_name(), default_in_team=pokemon_parser.is_pokemon_in_team(self.__pkmn_opponent.get_name()))
 
         # pokédex menu
         self.__pokedex_menu: PokedexState = None
