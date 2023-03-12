@@ -40,6 +40,7 @@ class PokedexState(GameState):
         self.list_offset = 0
         self.set_pkmn_list_from_offset()
         self.info_pkmn: Pokemon = None
+        self.info_pkmn_owned = False
         self.info_pkmn_cached_img: pygame.Surface = None
         self.info_pkmn_cached_count = -1
         self.in_info_menu = False
@@ -89,6 +90,7 @@ class PokedexState(GameState):
             self.info_pkmn = pokemon.get_pokemon_by_name(name)
             if self.info_pkmn is not None:
                 self.info_pkmn_cached_img = self.info_pkmn.get_image_front()
+                self.info_pkmn_owned = pokemon_parser.is_pokemon_in_team(self.info_pkmn.get_name())
                 self.in_info_menu = True
                 self.info_pkmn_cached_count = pokemon_parser.get_pokemon_encounter_count(name)
 
@@ -102,13 +104,19 @@ class PokedexState(GameState):
         super().update()
 
     def render(self, screen: pygame.Surface):
+        # if in info menu
         if self.in_info_menu:
             screen.blit(FRAME, (0, 0))
             text.draw_centered_text(self.info_pkmn.get_name(), 72, 14, screen, pygame.font.Font("res/pkmndpb.ttf", 18))
             # stats
-            text.draw_centered_text("PV: " + str(self.info_pkmn.get_hp()), 8 + 64, 166, screen)
-            text.draw_centered_text("Puissance: " + str(self.info_pkmn.get_strength()), 8 + 64, 186, screen)
-            text.draw_centered_text("Défense: " + str(self.info_pkmn.get_defense()), 8 + 64, 206, screen)
+            if self.info_pkmn_owned:
+                text.draw_centered_text("PV: " + str(self.info_pkmn.get_hp()), 8 + 64, 166, screen)
+                text.draw_centered_text("Puissance: " + str(self.info_pkmn.get_strength()), 8 + 64, 186, screen)
+                text.draw_centered_text("Défense: " + str(self.info_pkmn.get_defense()), 8 + 64, 206, screen)
+            else:
+                text.draw_centered_text("PV: " + str(self.info_pkmn.get_base_hp()), 8 + 64, 166, screen)
+                text.draw_centered_text("Puissance: " + str(self.info_pkmn.get_base_strength()), 8 + 64, 186, screen)
+                text.draw_centered_text("Défense: " + str(self.info_pkmn.get_base_defense()), 8 + 64, 206, screen)
             text.draw_centered_text("Rencontres: " + str(self.info_pkmn_cached_count), 8 + 64, 226, screen)
             # types
             if self.info_pkmn.get_types()[1].get_type() == -1:
@@ -123,6 +131,10 @@ class PokedexState(GameState):
                 124 + 13 - self.info_pkmn.get_types()[1].get_type_image().get_height() / 2))
             # img pokemon
             screen.blit(self.info_pkmn_cached_img, (24, 28))
+
+            # pokemon level
+            if self.info_pkmn_owned:
+                text.draw_text("Lvl: "+str(self.info_pkmn.get_level()), 148, 9, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=self.title_color)
 
             # attacks descs
             text.draw_centered_text("ATTAQUES:", 162+111, 6+17, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=self.title_color)
@@ -145,6 +157,7 @@ class PokedexState(GameState):
                 text.draw_text("PUISSANCE : "+str(power), 166, 110 + i*pos_offset, screen)
                 text.draw_text("PRECISION : " + str(rate), 166+128, 110 + i * pos_offset, screen)
 
+        # else render pkmn list
         else:
             if self.list_offset > 0:
                 screen.blit(ARROW, (64 + 150 - ARROW.get_width()/2, 22))

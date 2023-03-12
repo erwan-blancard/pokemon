@@ -23,6 +23,13 @@ from pokemon_types.invalid_type import Invalid
 
 from pokemon_attacks.attack import *
 
+MAX_LEVEL = 99
+
+# added stats values per level
+HP_BONUS_LEVEL = 1.3
+STRENGTH_BONUS_LEVEL = 1
+DEFENSE_BONUS_LEVEL = 0.3
+
 
 def get_type_by_id(ID):
     if ID == NORMAL:
@@ -106,40 +113,88 @@ class Pokemon:
     def __init__(self, name: str, strength: int, level: int, hp=100, defense=0,
                  types: tuple[int, int] = (NORMAL, -1),
                  type_attacks: tuple[int, int] = (-1, -1),
-                 attacks: tuple[str, str] = ("invalid", "invalid")):
+                 attacks: tuple[str, str] = ("invalid", "invalid"),
+                 evolution: str = "", evolution_level: int = 0):
 
         self.__name = name
         self.__strength = strength
         self.__level = level
         self.__hp = hp
-        self.__current_hp = hp
+        self.__current_hp = hp + self.__get_level_bonus_amount(HP_BONUS_LEVEL)
         self.__defense = defense
         self.__types = (get_type_by_id(types[0]), get_type_by_id(types[1]))
         self.__attacks = (get_attack_by_type_and_name(attacks[0], type_attacks[0]),
                           get_attack_by_type_and_name(attacks[1], type_attacks[1]))
+        self.__evolution = evolution
+        self.__evolution_level = evolution_level
 
     def print_infos(self):
-        print("Name:", self.__name, "\nStrength:", self.__strength, "\nLevel:", self.__level, "\nHP:", self.__hp,
-              "\nDefense:", self.__defense, "\nTypes:", self.__types[0].get_name(), self.__types[1].get_name(),
+        print("Name:", self.__name, "\nBase Strength:", self.__strength, "\nLevel:", self.__level, "\nBase HP:", self.__hp,
+              "\nBase Defense:", self.__defense, "\nTypes:", self.__types[0].get_name(), self.__types[1].get_name(),
               "\nAttacks:", self.__attacks[0].get_name(), self.__attacks[1].get_name())
 
     def get_name(self):
         return self.__name
 
-    def get_strength(self):
+    def get_base_strength(self):
         return self.__strength
+
+    def get_strength(self):
+        return self.__strength + self.__get_level_bonus_amount(STRENGTH_BONUS_LEVEL)
 
     def get_level(self):
         return self.__level
 
-    def get_hp(self):
+    def add_level(self):
+        """
+        Adds 1 level to the Pokémon.
+        Returns False if adding a level makes it go past the MAX_LEVEL, and True if the level was added.
+        """
+        if self.__level + 1 > MAX_LEVEL:
+            return False
+        else:
+            self.__level += 1
+            self.__current_hp = self.get_hp()
+            return True
+
+    def set_level(self, level):
+        """
+        Sets the level of the Pokémon.
+        Returns False if the level is greater than the MAX_LEVEL, and True if the level was set.
+        """
+        if level > MAX_LEVEL or level < 1:
+            return False
+        else:
+            self.__level = level
+            self.__current_hp = self.get_hp()
+            return True
+
+    def __get_level_bonus_amount(self, bonus):
+        return (self.__level - 1)*round(bonus)
+
+    def can_evolve(self):
+        return self.__evolution_level > 0
+
+    def get_evolution_name(self):
+        return self.__evolution
+
+    def get_evolution_level(self):
+        return self.__evolution_level
+
+    def get_base_hp(self):
         return self.__hp
+
+    def get_hp(self):
+        return self.__hp + self.__get_level_bonus_amount(HP_BONUS_LEVEL)
 
     def get_current_hp(self):
         return self.__current_hp
 
-    def get_defense(self):
+    def get_base_defense(self):
         return self.__defense
+
+    def get_defense(self):
+        return self.__defense + self.__get_level_bonus_amount(DEFENSE_BONUS_LEVEL)
 
     def get_types(self):
         return self.__types
@@ -152,12 +207,12 @@ class Pokemon:
 
     def get_attack_damage(self, attack_index: int, types_opponent: tuple[int, int]):
         if 0 <= attack_index < len(self.__attacks):
-            return self.__attacks[attack_index].get_attack_damage(self.__strength, types_opponent)
+            return self.__attacks[attack_index].get_attack_damage(self.get_strength(), types_opponent)
         else:
-            return self.__attacks[0].get_attack_damage(self.__strength, types_opponent)
+            return self.__attacks[0].get_attack_damage(self.get_strength(), types_opponent)
 
     def damage(self, amount):
-        damage = amount - self.__defense
+        damage = amount - self.get_defense()
         if damage < 1:
             damage = 1
         if amount <= 0:
@@ -185,7 +240,14 @@ class Pokemon:
 
     def copy(self):
         """returns a copy of the Pokémon as a new instance of the Pokemon class."""
-        return Pokemon(self.get_name(), self.get_strength(), self.get_level(), self.get_hp(), self.get_defense(),
+        return Pokemon(self.get_name(), self.get_base_strength(), self.get_level(), self.get_base_hp(), self.get_base_defense(),
+                       (self.get_types()[0].get_type(), self.get_types()[1].get_type()),
+                       (self.get_attacks()[0].get_attack_type().get_type(), self.get_attacks()[1].get_attack_type().get_type()),
+                       (self.get_attacks()[0].get_name(), self.get_attacks()[1].get_name()))
+
+    def copy_with_set_level(self, level: int):
+        """returns a copy of the Pokémon as a new instance of the Pokemon class."""
+        return Pokemon(self.get_name(), self.get_base_strength(), level, self.get_base_hp(), self.get_base_defense(),
                        (self.get_types()[0].get_type(), self.get_types()[1].get_type()),
                        (self.get_attacks()[0].get_attack_type().get_type(), self.get_attacks()[1].get_attack_type().get_type()),
                        (self.get_attacks()[0].get_name(), self.get_attacks()[1].get_name()))

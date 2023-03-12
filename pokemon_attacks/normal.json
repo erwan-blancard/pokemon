@@ -2,7 +2,7 @@
     {
         "name": "CHARGE",
         "desc": "Charge l\u0027ennemi et le percute de tout son corps.",
-        "attack_strength": 0.35,
+        "attack_strength": 0.5,
         "success_rate": 1.0
     },
     {
@@ -26,7 +26,7 @@
     {
         "name": "GRIFFE",
         "desc": "Lac\u00e8re la cible avec des griffes ac\u00e9r\u00e9es pour lui infliger des d\u00e9g\u00e2ts.",
-        "attack_strength": 0.45,
+        "attack_strength": 0.55,
         "success_rate": 1.0
     },
     {

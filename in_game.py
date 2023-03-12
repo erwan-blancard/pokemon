@@ -5,14 +5,17 @@ import pygame
 
 import game_state
 import pokedex
+import pokemon
 import pokemon_parser
 import text
 from game_state import GameState
 from pokemon import *
 from combat import Combat
 from ui.button_icon import ButtonIcon
-from pokedex import BUTTON_BG, ARROW
+from pokedex import ARROW
 from ui.button_label import ButtonLabel
+
+BUTTON_BG = pygame.image.load("res/pokédex_button_small.png")
 
 
 class InGameState(GameState):
@@ -24,6 +27,9 @@ class InGameState(GameState):
 
         self.__pkmn_player: Pokemon = None
         self.__pkmn_opponent: Pokemon = None
+
+        self.__pkmn_player_has_evolved = False
+        self.__pkmn_player_reached_level_limit = False
 
         # create blank buttons
         for i in range(3):
@@ -37,8 +43,8 @@ class InGameState(GameState):
 
         self.current_button = 0
         self.game_over_buttons = [
-            ButtonLabel("Rejouer", 200-32, 160, 64, 16, lambda: self.__start_battle(), font=pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255)),
-            ButtonLabel("Quitter", 200-32, 182, 64, 16, lambda: game_state.set_state(game_state.MENU), font=pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
+            ButtonLabel("Rejouer", 200-32, 190, 64, 16, lambda: self.__start_battle(), font=pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255)),
+            ButtonLabel("Quitter", 200-32, 212, 64, 16, lambda: game_state.set_state(game_state.MENU), font=pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
         ]
         self.__timer = 0
 
@@ -56,7 +62,12 @@ class InGameState(GameState):
                 pkmn_name = POKEMONS[pkmn_i].get_name()
                 # if pokémon was encountered at least once
                 if pokemon_parser.pokemon_in_pokedex(pkmn_name) and pokemon_parser.get_pokemon_encounter_count(pkmn_name) > 0:
-                    img_label.blit(POKEMONS[pkmn_i].get_image_icon(), (0, 0))
+                    in_team = pokemon_parser.is_pokemon_in_team(pkmn_name)
+                    # if pokémon not in team
+                    pkmn_img = POKEMONS[pkmn_i].get_image_icon()
+                    if not in_team:
+                        pkmn_img = pokedex.colorize(pkmn_img, (0, 0, 0))
+                    img_label.blit(pkmn_img, (0, 0))
                     # show types
                     if POKEMONS[pkmn_i].get_types()[1].get_type() == -1:
                         img_pkmn_type = POKEMONS[pkmn_i].get_types()[0].get_type_image()
@@ -67,8 +78,12 @@ class InGameState(GameState):
                             img_label.blit(img_pkmn_type, (img_label.get_width() - 50 - img_pkmn_type.get_width() + j*40, img_label.get_height() / 2 - img_pkmn_type.get_height() / 2))
 
                     text.draw_text(POKEMONS[pkmn_i].get_name(), 56, 16, img_label, text.get_font(16))
-                    self.buttons[i] = ButtonIcon(88, 24+32 + 8 + (i * 48), 250, 48, img_label,
-                                                 lambda pkmn_index=pkmn_i: self.__select_pkmn(pkmn_index))
+                    if in_team:
+                        self.buttons[i] = ButtonIcon(88, 24+32 + 8 + (i * 48), 250, 48, img_label,
+                                                     lambda pkmn_index=pkmn_i: self.__select_pkmn(pkmn_index))
+                    else:
+                        self.buttons[i] = ButtonIcon(88, 24 + 32 + 8 + (i * 48), 250, 48, img_label)
+
                 # if pokémon was not encountered
                 else:
                     pkmn_img = POKEMONS[pkmn_i].get_image_icon()
@@ -89,9 +104,40 @@ class InGameState(GameState):
     def __start_battle(self):
         if self.__pkmn_player is not None:
             self.__timer = 0
+            self.__pkmn_player_has_evolved = False
+            self.__pkmn_player_reached_level_limit = False
             self.__pkmn_opponent = POKEMONS[random.randint(0, len(POKEMONS) - 1)]
             self.__in_battle = True
-            self.__combat = Combat(self.__pkmn_player.copy(), self.__pkmn_opponent.copy())
+            opponent_level = self.__pkmn_player.get_level() + random.randint(-3, 3)
+            if opponent_level < 1:
+                opponent_level = 1
+            if opponent_level > pokemon.MAX_LEVEL:
+                opponent_level = MAX_LEVEL
+            self.__combat = Combat(self.__pkmn_player.copy(), self.__pkmn_opponent.copy_with_set_level(opponent_level))
+
+    def __add_level_to_player(self):
+        i = 0
+        while i < len(POKEMONS):
+            if POKEMONS[i].get_name() == self.__pkmn_player.get_name():
+                if POKEMONS[i].add_level():
+                    pokemon_parser.set_team_level_of_pokemon(self.__pkmn_player.get_name(), self.__pkmn_player.get_level())
+                    # manage pkmn evolution
+                    if POKEMONS[i].can_evolve() and POKEMONS[i].get_evolution_level() == POKEMONS[i].get_level() and pokemon_parser.pokemon_exists(POKEMONS[i].get_evolution_name()):
+                        # no evolution if pokémon evolution is in team
+                        if not pokemon_parser.is_pokemon_in_team(POKEMONS[i].get_evolution_name()):
+                            pkmn_evolution = pokemon.get_pokemon_by_name(POKEMONS[i].get_evolution_name())
+                            pokemon_parser.add_to_pokedex(pkmn_evolution.get_name())
+                            pokemon_parser.set_pokemon_in_team_state(pkmn_evolution.get_name(), True)
+                            pkmn_evolution.set_level(POKEMONS[i].get_evolution_level())
+                            pokemon_parser.set_team_level_of_pokemon(pkmn_evolution.get_name(), POKEMONS[i].get_evolution_level())
+                            # remove old pkmn
+                            pokemon_parser.set_pokemon_in_team_state(POKEMONS[i].get_name(), False)
+                            pokemon_parser.set_team_level_of_pokemon(POKEMONS[i].get_name(), False)
+                            self.__pkmn_player_has_evolved = True
+                else:
+                    self.__pkmn_player_reached_level_limit = True
+                break
+            i += 1
 
     def update(self):
         super().update()
@@ -99,6 +145,8 @@ class InGameState(GameState):
             self.__combat.update()
             if self.__combat.is_phase_out_anim_finished() and self.__timer == 0:
                 self.__timer = time.time()
+                if self.__combat.is_opponent_dead():
+                    self.__add_level_to_player()
 
     def render(self, screen: pygame.Surface):
         if self.__in_battle:
@@ -109,6 +157,17 @@ class InGameState(GameState):
                     text.draw_aligned_text("Vous avez perdu !", screen.get_width()/2, 16, screen, pygame.font.Font("res/pkmndpb.ttf", 24), color=(255, 255, 255))
                 elif self.__combat.is_opponent_dead():
                     text.draw_aligned_text("Vous avez gagné !", screen.get_width() / 2, 16, screen, pygame.font.Font("res/pkmndpb.ttf", 24), color=(255, 255, 255))
+                    # level + evolution
+                    if self.__pkmn_player_reached_level_limit:
+                        text.draw_aligned_text(self.__pkmn_player.get_name() + "  ->  Lvl  " + str(self.__pkmn_player.get_name()), screen.get_width()/2, 72, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
+                    else:
+                        if self.__pkmn_player_has_evolved:
+                            text.draw_aligned_text(self.__pkmn_player.get_name() + " gagne un niveau !", screen.get_width() / 2, 40, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
+                            text.draw_aligned_text("Lvl  " + str(self.__pkmn_player.get_level() - 1) + "  ->  " + str(self.__pkmn_player.get_level()), screen.get_width() / 2, 60, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
+                            text.draw_aligned_text(self.__pkmn_player.get_name() + " évolue en " + self.__pkmn_player.get_evolution_name() + " !", screen.get_width()/2, 88, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
+                        else:
+                            text.draw_aligned_text(self.__pkmn_player.get_name() + " gagne un niveau !", screen.get_width()/2, 72, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
+                            text.draw_aligned_text("Lvl  " + str(self.__pkmn_player.get_level()-1) + "  ->  " + str(self.__pkmn_player.get_level()), screen.get_width()/2, 96, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
                 i = 0
                 while i < len(self.game_over_buttons):
                     self.game_over_buttons[i].render(screen)
