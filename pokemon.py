@@ -27,8 +27,8 @@ MAX_LEVEL = 99
 
 # added stats values per level
 HP_BONUS_LEVEL = 1.3
-STRENGTH_BONUS_LEVEL = 0.5
-DEFENSE_BONUS_LEVEL = 0.3
+STRENGTH_BONUS_LEVEL = 0.4
+DEFENSE_BONUS_LEVEL = 0.2
 
 
 def get_type_by_id(ID):
@@ -170,7 +170,7 @@ class Pokemon:
             return True
 
     def __get_level_bonus_amount(self, bonus):
-        return (self.__level - 1)*round(bonus)
+        return round((self.__level - 1)*bonus)
 
     def can_evolve(self):
         return self.__evolution_level > 0

@@ -277,7 +277,9 @@ def add_pokemon(name: str, strength: int, hp: int, defense: int, type_ID_1: int,
                      "attack_type_1": attack_type_1,
                      "attack_name_1": attack_name_1,
                      "attack_type_2": attack_type_2,
-                     "attack_name_2": attack_name_2}
+                     "attack_name_2": attack_name_2,
+                     "evolution": "",
+                     "evolution_level": 0}
                 )
                 write_to_file(json_dict)
                 return True

@@ -164,7 +164,7 @@ class InGameState(GameState):
                     text.draw_aligned_text("Vous avez gagné !", screen.get_width() / 2, 16, screen, pygame.font.Font("res/pkmndpb.ttf", 24), color=(255, 255, 255))
                     # level + evolution
                     if self.__pkmn_player_reached_level_limit:
-                        text.draw_aligned_text(self.__pkmn_player.get_name() + "  ->  Lvl  " + str(self.__pkmn_player.get_name()), screen.get_width()/2, 72, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
+                        text.draw_aligned_text(self.__pkmn_player.get_name() + " :  Lvl  " + str(self.__pkmn_player.get_level()), screen.get_width() / 2, 60 + 16, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
                     else:
                         if self.__pkmn_player_has_evolved:
                             text.draw_aligned_text(self.__pkmn_player.get_name() + " gagne un niveau !", screen.get_width() / 2, 40+16, screen, pygame.font.Font("res/pkmndpb.ttf", 18), color=(255, 255, 255))
