@@ -259,7 +259,7 @@ def set_team_level_of_pokemon(name: str, level: int):
 
 
 # returns False if the pokémon couldn't be added and True if it was added to "pokemon.json"
-def add_pokemon(name: str, strength: int, hp: int, defense: int, type_ID_1: int, type_ID_2: int, attack_type_1: int, attack_name_1: str, attack_type_2: int, attack_name_2: str):
+def add_pokemon(name: str, strength: int, hp: int, defense: int, type_ID_1: int, type_ID_2: int, attack_type_1: int, attack_name_1: str, attack_type_2: int, attack_name_2: str, evolution: str = "", evolution_team: int = 0):
     file = open_file()
     json_dict = get_JSON(file)
     if file is not None:
@@ -278,8 +278,8 @@ def add_pokemon(name: str, strength: int, hp: int, defense: int, type_ID_1: int,
                      "attack_name_1": attack_name_1,
                      "attack_type_2": attack_type_2,
                      "attack_name_2": attack_name_2,
-                     "evolution": "",
-                     "evolution_level": 0}
+                     "evolution": evolution,
+                     "evolution_level": evolution_team}
                 )
                 write_to_file(json_dict)
                 return True
